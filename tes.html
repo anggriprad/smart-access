@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Pintu</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body class="flex justify-center items-center h-screen bg-gray-100">
+    <div class="bg-white p-6 rounded-lg shadow-md w-96">
+        <h2 class="text-xl font-semibold mb-4">Filter Laporan Pintu</h2>
+        
+        <!-- Pilihan Rentang Hari -->
+        <label class="block mb-2 font-medium">Rentang Hari:</label>
+        <select id="date-range" class="w-full border p-2 rounded mb-4">
+            <option value="today">Hari Ini</option>
+            <option value="yesterday">Kemarin</option>
+            <option value="this-week">Minggu Ini</option>
+            <option value="this-month">Bulan Ini</option>
+            <option value="custom">Custom Date Range</option>
+        </select>
+        <input id="custom-date" type="text" class="w-full border p-2 rounded mb-4 hidden" placeholder="Pilih rentang tanggal...">
+
+        <!-- Pilihan Rentang Waktu -->
+        <label class="block mb-2 font-medium">Rentang Waktu:</label>
+        <select id="time-range" class="w-full border p-2 rounded mb-4">
+            <option value="all-time">Sepanjang Waktu</option>
+            <option value="custom">Custom Time Range</option>
+        </select>
+        <div id="custom-time-group" class="flex gap-2 hidden">
+            <input id="start-time" type="time" class="border p-2 rounded flex-1">
+            <input id="end-time" type="time" class="border p-2 rounded flex-1">
+        </div>
+
+        <button id="submit-btn" class="w-full bg-blue-600 text-white p-2 rounded mt-4 hover:bg-blue-700">Tampilkan Laporan</button>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dateRange = document.getElementById("date-range");
+            const customDate = document.getElementById("custom-date");
+            const timeRange = document.getElementById("time-range");
+            const customTimeGroup = document.getElementById("custom-time-group");
+            const startTime = document.getElementById("start-time");
+            const endTime = document.getElementById("end-time");
+
+            // Flatpickr untuk date range
+            flatpickr(customDate, {
+                mode: "range",
+                dateFormat: "Y-m-d",
+                onOpen: function(selectedDates, dateStr, instance) {
+                    instance.clear();
+                }
+            });
+
+            // Event listener untuk date range dropdown
+            dateRange.addEventListener("change", function () {
+                if (this.value === "custom") {
+                    customDate.classList.remove("hidden");
+                    customDate.click(); // Langsung buka date picker
+                } else {
+                    customDate.classList.add("hidden");
+                    customDate.value = "";
+                }
+            });
+
+            // Event listener untuk time range dropdown
+            timeRange.addEventListener("change", function () {
+                if (this.value === "custom") {
+                    customTimeGroup.classList.remove("hidden");
+                } else {
+                    customTimeGroup.classList.add("hidden");
+                    startTime.value = "";
+                    endTime.value = "";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

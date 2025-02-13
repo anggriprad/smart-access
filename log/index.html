@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Access - Access Log</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet" />
+  <script
+    src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+  <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8"
+    data-border-radius="small"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="min-h-screen flex flex-col lg:flex-row">
+    <aside class="w-full lg:w-60 bg-white border-b lg:border-r border-gray-200 lg:fixed lg:h-full">
+      <a href="/">
+        <div class="px-6 py-4 border-b border-gray-200 flex gap-3">
+          <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Smart Access" class="h-8 ml-0" />
+          <span class="text-xl font-semibold mr-0 text-blue-600">Smart Access</span>
+        </div>
+      </a>
+      <nav class="my-4 px-2 space-y-1">
+        <a href="/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-house text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Dashboard
+        </a>
+        <a href="/log/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
+          <i class="fas fa-key text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Activity Log
+        </a>
+        <a href="/guest/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-calendar-alt text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Guest Reservation
+        </a>
+        <a href="/door/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-door-open text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Door Access
+          </div>
+        </a>
+        <a href="/cctv/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-video text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            CCTV
+          </div>
+        </a>
+        <!-- <a href="/user/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-users text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Users
+        </a>
+        <a href="/device/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-tablet-screen-button text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Devices
+        </a> -->
+        <a href="#" id="management"
+          class="flex items-center justify-between p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-gear text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Access Management
+          </div>
+          <i id="chevron" class="fas fa-chevron-down text-gray-400 text-xs transition-transform"></i>
+        </a>
+        <div class="space-y-1 hidden" id="management-submenu">
+          <a href="/management/door/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            Door Management
+          </a>
+          <a href="/management/user/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            User Management
+          </a>
+          <a href="/management/device/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            Device Management
+          </a>
+          <a href="/management/cctv/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            CCTV Management
+          </a>
+        </div>
+      </nav>
+    </aside>
+    <main class="flex-1 lg:ml-60">
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="px-6 sm:px-6 py-2 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
+          <h1 class="text-xl font-semibold text-gray-800">Activity Log</h1>
+          <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-400 hover:text-gray-500">
+              <i class="fas fa-bell"></i>
+              <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400"></span>
+            </button>
+            <div id="openModal" class="p-2 flex items-center rounded-md hover:cursor-pointer hover:bg-gray-50">
+              <img src="/assets/img-account-circle-fill.png" class="h-8 w-8 rounded-full" alt="Profile" />
+              <span class="ml-3 text-sm font-medium text-gray-700">John Smith</span>
+              <i class="fas fa-chevron-down ml-2 text-gray-400 text-xs"></i>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Overlay -->
+        <div id="modalOverlay" class="fixed flex inset-0 bg-black/10 justify-end ml-0 hidden">
+          <div class="h-fit bg-white rounded-lg shadow-xl translate-y-4 -translate-x-4 w-56">
+            <div class="flex flex-col justify-center items-center p-4 border-b border-gray-200">
+              <img src="/assets/img-account-circle-fill.png" alt="" class="w-20">
+              <h3 class="text-lg font-medium text-center">John Smith</h3>
+              <span class="text-sm text-center text-gray-600">john.smith@example.com</span>
+            </div>
+            <ul class="py-2">
+              <li>
+                <a href="">
+                  <div class="flex px-2 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                    <i class="fas fa-gear flex justify-center items-center w-8 mr-2"></i>
+                    <span>Settings</span>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <div class="flex px-2 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                    <i class="fas fa-sign-out-alt flex justify-center items-center w-8 mr-2"></i>
+                    <span>Log out</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="p-6 mb-20">
+        <div class="flex items-center justify-between mb-6 gap-4">
+          <div class="flex items-center">
+            <div class="flex items-center space-x-4 mr-4">
+              <div class="flex gap-2">
+                <select id="date-range" class="rounded border-gray-300 text-sm cursor-pointer">
+                  <option value="today">Today</option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="this-week">This Week</option>
+                  <option value="this-month">This Month</option>
+                  <option value="custom">Custom Date</option>
+                </select>
+                <input id="custom-date" type="text" class="rounded border-gray-300 text-sm cursor-pointer hidden"
+                  placeholder="Select Date Range">
+                <div id="custom-time-group" class="flex gap-2">
+                  <input id="start-time" type="time" class="rounded border-gray-300 text-sm max-h-[38px] cursor-pointer"
+                    step="600">
+                  <input id="end-time" type="time" class="rounded border-gray-300 text-sm max-h-[38px] cursor-pointer"
+                    step="600">
+                </div>
+              </div>
+              <!-- <select
+                class="block pl-3 pr-10 py-2 text-sm border-gray-300 rounded-md focus:ring-custom focus:border-custom">
+                <option>All Access Method</option>
+                <option>Face Recognition</option>
+                <option>Fingerprint</option>
+                <option>Card Access</option>
+                <option>PIN Code</option>
+              </select>
+              <select
+                class="block pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-custom focus:border-custom">
+                <option>All Status</option>
+                <option>Granted</option>
+                <option>Denied</option>
+              </select> -->
+            </div>
+          </div>
+          <a href="">
+            <button class="rounded flex items-center px-4 py-2 text-sm bg-custom text-white hover:bg-custom/90">
+              <i class="fas fa-file-export mr-2"></i>
+              <span>Export Data</span>
+            </button>
+          </a>
+        </div>
+        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <nav class="flex border-b border-gray-200" aria-label="Tabs">
+            <button
+              class="px-6 py-4 border-b-2 font-medium text-sm border-custom text-custom hover:text-custom whitespace-nowrap"
+              aria-current="page" onclick="switchTab('doors')">
+              All
+            </button>
+            <button
+              class="px-6 py-4 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-custom whitespace-nowrap"
+              onclick="switchTab('floors')">
+              Internal
+            </button>
+            <button
+              class="px-6 py-4 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-custom whitespace-nowrap"
+              onclick="switchTab('floors')">
+              Guest
+            </button>
+          </nav>
+          <div class="flex justify-between px-4 py-3 space-x-2 border-b border-gray-200 sticky top-0 z-30">
+            <div class="flex space-x-2">
+              <div class="relative w-[248px]">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="fas fa-search text-gray-400"></i>
+                </div>
+                <input type="text"
+                  class="block w-full pl-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-custom focus:border-custom"
+                  placeholder="Search by door name or visitor" />
+              </div>
+              <button
+                class="rounded flex items-center px-4 py-2 text-sm text-gray-600 border border-gray-300 hover:bg-gray-50 hover:text-gray-900">
+                <i class="fas fa-filter mr-1 relative -left-1"></i>
+                <span>Filter</span>
+              </button>
+            </div>
+            <div class="flex gap-2">
+              <select id="" class="rounded border-gray-300 text-sm cursor-pointer">
+                <option value="">Sort by</option>
+                <option value="time">Time</option>
+                <option value="door">Door</option>
+                <option value="activity">Activity</option>
+                <option value="visitor">Visitor</option>
+                <option value="role">Role</option>
+                <option value="access-method">Access method</option>
+                <option value="status">Status</option>
+              </select>
+              <button
+                class="px-3 rounded flex items-center justify-center text-sm border border-gray-300 hover:bg-gray-50"
+                onclick="this.querySelector('i').classList.toggle('fa-arrow-up-wide-short'); this.querySelector('i').classList.toggle('fa-arrow-down-short-wide');">
+                <i class="fas fa-arrow-up-wide-short"></i>
+              </button>
+            </div>
+          </div>
+          <div class="overflow-x-auto w-full">
+            <table class="w-full">
+              <thead class="bg-gray-100">
+                <tr class="hover:bg-gray-50 cursor-pointer">
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Door</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Activity
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visitor
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Access
+                    Method</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr class="hover:bg-gray-50 cursor-pointer">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">12 Feb 2025, 09:21</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Main Entrance</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Entry</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sarah Johnson</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Internal</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Face Recognition</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50 cursor-pointer">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">12 Feb 2025, 09:17</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Server Room</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Entry</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Michael Chen</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Internal</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Key Card</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50 cursor-pointer">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">12 Feb 2025, 08:58</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Conference Room</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">Exit</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Guest</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50 cursor-pointer">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">12 Feb 2025, 08:58</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Conference Room</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">Exit</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Denied</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="px-6 py-4 border-t border-gray-200">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <p class="text-sm text-gray-700">
+                    Showing <span class="font-medium">1</span> to <span class="font-medium">3</span> of <span
+                      class="font-medium">12</span> results
+                  </p>
+                  <select
+                    class="ml-4 block pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-custom focus:border-custom">
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                  </select>
+                </div>
+                <div class="flex justify-between gap-2">
+                  <button
+                    class="relative inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Previous
+                  </button>
+                  <button disabled
+                    class="relative inline-flex items-center px-3 py-2 border border-gray-50 text-sm font-medium rounded-md text-blue-700 bg-gray-50">
+                    1
+                  </button>
+                  <button
+                    class="relative inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    2
+                  </button>
+                  <button
+                    class="relative inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Get elements
+    const openModalButton = document.getElementById('openModal');
+    const closeModalButton = document.getElementById('closeModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    // Open modal
+    openModalButton.addEventListener('click', () => {
+      modalOverlay.classList.remove('hidden');
+    });
+
+    // Close modal by clicking outside the modal
+    modalOverlay.addEventListener('click', (event) => {
+      if (event.target === modalOverlay) {
+        modalOverlay.classList.add('hidden');
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const deviceMenu = document.querySelector("#management-submenu");
+      const toggleButton = document.querySelector("#management");
+      const chevronIcon = document.querySelector("#chevron");
+
+      toggleButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        deviceMenu.classList.toggle("hidden");
+        chevronIcon.classList.toggle("rotate-180");
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const dateRange = document.getElementById("date-range");
+      const customDate = document.getElementById("custom-date");
+      const customTimeGroup = document.getElementById("custom-time-group");
+      const startTime = document.getElementById("start-time");
+      const endTime = document.getElementById("end-time");
+
+      // Flatpickr untuk date range
+      flatpickr(customDate, {
+        mode: "range",
+        dateFormat: "d M y",
+        onOpen: function (selectedDates, dateStr, instance) {
+          instance.clear();
+        }
+      });
+
+      // Event listener untuk date range dropdown
+      dateRange.addEventListener("change", function () {
+        if (this.value === "custom") {
+          customDate.classList.remove("hidden");
+          customDate.click(); // Langsung buka date picker
+        } else {
+          customDate.classList.add("hidden");
+          customDate.value = "";
+        }
+      });
+
+      function validateTimeRange() {
+        if (startTime.value >= endTime.value) {
+          alert("End Time must be bigger than Start Time");
+          endTime.value = "";
+        }
+      }
+
+      startTime.addEventListener("change", validateTimeRange);
+      endTime.addEventListener("change", validateTimeRange);
+    });
+  </script>
+</body>
+
+</html>

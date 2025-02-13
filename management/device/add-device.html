@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Device - Access Control System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+  <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8" data-border-radius="medium"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="min-h-screen flex flex-col">
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+          <div class="px-4 sm:px-4 py-2 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
+              <a href="index.html">
+                <div class="px-4 flex gap-4">
+                    <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Smart Access" class="h-8 ml-0"/>
+                    <span class="text-xl font-semibold mr-0 text-blue-600">Smart Access</span>
+                </div>
+              </a>
+              <div class="flex items-center space-x-4">
+                  <button class="relative p-2 text-gray-400 hover:text-gray-500">
+                      <i class="fas fa-bell"></i>
+                      <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400"></span>
+                  </button>
+                  <div class="flex items-center p-2 hover:cursor-pointer hover:bg-gray-50">
+                      <img src="assets/img-account-circle-fill.png" class="h-8 w-8 rounded-full" alt="Profile"/>
+                      <span class="ml-3 text-sm font-medium text-gray-700">John Smith</span>
+                      <i class="fas fa-chevron-down ml-2 text-gray-400 text-xs"></i>
+                  </div>
+              </div>
+          </div>
+      </header>
+      <main class="flex-grow">
+          <div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+              <div class="bg-white shadow rounded-lg">
+                  <div class="px-6 py-5 border-b border-gray-200">
+                      <h1 class="text-2xl font-semibold text-gray-900">Add New Device</h1>
+                  </div>
+                  <form class="space-y-6 px-6 py-6">
+                      <div class="space-y-6">
+                          <div>
+                              <label class="block text-sm font-medium text-gray-700">Device <span class="text-red-500">*</span></label>
+                              <select required="" class="mt-1 block w-full border-gray-300 focus:border-custom focus:ring-custom rounded">
+                                  <option value="">Select device</option>
+                                  <option value="internal">DS-KAS321</option>
+                                  <option value="guest">DS-KAS541</option>
+                                  <option value="admin">DS-K1T670MX-WB</option>
+                                  <option value="author">DS-K1T670MX-WE</option>
+                              </select>
+                          </div>
+                          <div>
+                              <label class="block text-sm font-medium text-gray-700">Device Name <span class="text-red-500">*</span></label>
+                              <input type="text" required="" class="mt-1 block w-full border-gray-300 focus:border-custom focus:ring-custom rounded" placeholder="Enter device name"/>
+                          </div>
+
+                          <!-- <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-3">Door Access <span class="text-red-500">*</span></label>
+                            <div id="door-access-list" class="flex flex-col gap-4 bg-gray-50 rounded-lg p-4">
+                              <div id="empty" class="text-center py-8">
+                                <i class="fas fa-door-open text-gray-400 text-4xl mb-4"></i>
+                                <p class="text-gray-500 text-sm">No doors added yet. Please select at least one door.</p>
+                              </div>
+                            </div>
+                          </div> -->
+                          <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-3">Access Method</label>
+                            <div class="space-y-4">
+                              <div class="flex items-center mb-3">
+                                <input type="checkbox" id="face" class="rounded border-gray-300 text-custom mr-2 focus:ring-0 cursor-pointer"/>
+                                <label for="face" class="text-sm text-gray-700 cursor-pointer">Face recognition</label>
+                              </div>
+                              <div class="flex items-center mb-3">
+                                <input type="checkbox" id="fingerprint" class="rounded border-gray-300 text-custom mr-2 focus:ring-0 cursor-pointer"/>
+                                <label for="fingerprint" class="text-sm text-gray-700 cursor-pointer">Fingerprint</label>
+                              </div>
+                              <div class="flex items-center mb-3">
+                                <input type="checkbox" id="card" class="rounded border-gray-300 text-custom mr-2 focus:ring-0 cursor-pointer"/>
+                                <label for="card" class="text-sm text-gray-700 cursor-pointer">Card</label>
+                              </div>
+                              <div class="flex items-center mb-3">
+                                <input type="checkbox" id="remote" class="rounded border-gray-300 text-custom mr-2 focus:ring-0 cursor-pointer"/>
+                                <label for="remote" class="text-sm text-gray-700 cursor-pointer">Remote</label>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+                          <a href="./">
+                            <button type="button" class="rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50">
+                                Cancel
+                            </button>
+                          </a>
+                          <button type="submit" class="rounded-md bg-custom px-4 py-2 text-sm font-medium text-white hover:bg-custom/90">
+                              Save Device
+                          </button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </main>
+  
+    <!-- Modal -->
+    <div class="fixed inset-0 hidden bg-black bg-opacity-50 z-9 flex items-center justify-center" id="door-access-modal">
+      <div class="relative top-5 bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4">
+        <div class="px-6 py-2 border-b border-gray-200 flex justify-between items-center">
+          <h3 class="text-lg font-medium">Select Door Access</h3>
+          <button id="closeModal" class="relative right-[-10px] flex items-center w-10 h-10 justify-center rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-50">
+            <i class="fas fa-times text-lg"></i>
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto">
+          <div class="flex flex-col p-4">
+            <div class="sticky top-0 bg-white p-2">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-search text-gray-400 pl-2"></i>
+              </div>
+              <input type="text" class="block w-full pl-10 py-2 border border-gray-300 rounded-md focus:ring-custom focus:border-custom" placeholder="Search..."/>
+            </div>
+            <div class="grid grid-cols-2 gap-2 p-2">
+              <div class="door-item px-4 py-2 border rounded hover:bg-gray-50 cursor-pointer" data-door="Server Room" data-floor="1st Floor">
+                <h6>Server Room</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+              <div class="door-item px-4 py-2 border rounded hover:bg-gray-50 cursor-pointer" data-door="Research Lab" data-floor="1st Floor">
+                <h6>Research Lab</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+              <div class="door-item px-4 py-2 border rounded hover:bg-gray-50 cursor-pointer" data-door="Conference Room" data-floor="1st Floor">
+                <h6>Conference Room</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+              <div class="door-item px-4 py-2 border rounded hover:bg-gray-50 cursor-pointer" data-door="Storage Area" data-floor="1st Floor">
+                <h6>Storage Area</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+            </div>
+            <!-- <div class="door-item flex gap-4 px-4 py-2 hover:bg-gray-50 cursor-pointer" data-door="Storage Area">
+              <input type="checkbox" class="mt-2 rounded">
+              <div class="flex flex-col">
+                <h6>Storage Area</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+            </div>
+            <div class="door-item flex gap-4 px-4 py-2 hover:bg-gray-50 cursor-pointer" data-door="Storage Area">
+              <input type="checkbox" class="mt-2 rounded">
+              <div class="flex flex-col">
+                <h6>Storage Area</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+            </div>
+            <div class="door-item flex gap-4 px-4 py-2 hover:bg-gray-50 cursor-pointer" data-door="Storage Area">
+              <input type="checkbox" class="mt-2 rounded">
+              <div class="flex flex-col">
+                <h6>Storage Area</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+            </div>
+            <div class="door-item flex gap-4 px-4 py-2 hover:bg-gray-50 cursor-pointer" data-door="Storage Area">
+              <input type="checkbox" class="mt-2 rounded">
+              <div class="flex flex-col">
+                <h6>Storage Area</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-4">
+          <button id="cancelModal" class="rounded bg-white px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50">
+            Cancel
+          </button>
+          <button id="saveModal" class="rounded bg-custom px-4 py-2 text-sm font-medium text-white hover:bg-custom/90">Add Selected</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+      document.querySelector('[role="switch"]').addEventListener('click', function() {
+          const isActive = this.getAttribute('aria-checked') === 'true';
+          this.setAttribute('aria-checked', !isActive);
+          this.classList.toggle('bg-gray-200');
+          this.classList.toggle('bg-custom');
+          const thumb = this.querySelector('span');
+          thumb.classList.toggle('translate-x-5');
+          thumb.classList.toggle('translate-x-0');
+          const status = this.nextElementSibling;
+          status.textContent = isActive ? 'Inactive' : 'Active';
+
+          const checkIcon = document.getElementById('check');
+            if (isActive) {
+                checkIcon.classList.remove('text-custom'); // Hapus warna custom
+                checkIcon.classList.add('text-white'); // Tambahkan warna putih
+            } else {
+                checkIcon.classList.remove('text-white'); // Hapus warna putih
+                checkIcon.classList.add('text-custom'); // Tambahkan warna custom
+            }
+      });
+  </script>
+
+  <script>
+    function closeModal() {
+      document.getElementById('door-access-modal').style.display = 'none';
+    }
+
+    function checkEmpty() {
+        const doorAccessList = document.getElementById('door-access-list');
+        const emptyMessage = document.getElementById('empty');
+        
+        // Cek apakah ada item dalam list
+        if (doorAccessList.querySelectorAll('.bg-white').length === 0) {
+            emptyMessage.style.display = 'block'; // Tampilkan pesan kosong
+        } else {
+            emptyMessage.style.display = 'none'; // Sembunyikan pesan kosong
+        }
+    }
+
+    // Event listener untuk tombol cancel modal
+    document.getElementById('cancelModal').addEventListener('click', closeModal);
+
+    // Event listener untuk tombol close di sudut kanan atas modal
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+
+    document.getElementById('door-access-modal').addEventListener('click', function(event) {
+      // Pastikan klik terjadi pada overlay, bukan pada konten modal
+      if (event.target === this) {
+        closeModal();
+      }
+    });
+
+    // Fungsi untuk menambah/menghapus kelas 'active' pada item yang dipilih
+    document.querySelectorAll('.door-item').forEach(item => {
+      item.addEventListener('click', function() {
+        this.classList.toggle('bg-blue-50'); // Memberikan background color berbeda untuk item yang dipilih
+        this.classList.toggle('hover:bg-blue-50'); // Memberikan background color berbeda untuk item yang dipilih
+        this.classList.toggle('border-custom'); // Beri border berbeda
+      });
+    });
+
+    // Fungsi untuk menambah item ke daftar Door Access di form
+    document.getElementById('saveModal').addEventListener('click', function() {
+      const selectedItems = document.querySelectorAll('.door-item.border-custom');
+      const doorAccessList = document.getElementById('door-access-list');
+
+      // Menambahkan item yang dipilih ke dalam daftar Door Access
+      selectedItems.forEach(item => {
+        const doorName = item.getAttribute('data-door');
+        const floorName = item.getAttribute('data-floor');
+        const listItem = document.createElement('div');
+        listItem.classList.add('bg-white', 'rounded', 'py-2', 'px-4', 'flex', 'justify-between', 'items-center');
+        listItem.innerHTML = `
+          <div>
+            <h6 class="text-sm font-medium text-gray-900">${doorName}</h6>
+            <span class="text-sm text-gray-400">${floorName}</span>
+          </div>
+          <i class="fas fa-times text-red-500 cursor-pointer" onclick="removeItem(this)"></i>
+        `;
+        doorAccessList.appendChild(listItem);
+      });
+
+      // Menutup modal setelah menambahkan item
+      closeModal();
+      checkEmpty();
+    });
+
+    // Fungsi untuk menghapus item dari daftar Door Access
+    function removeItem(button) {
+      button.closest('div').remove(); // Menghapus elemen parent dari button
+      checkEmpty();
+    }
+  </script>
+

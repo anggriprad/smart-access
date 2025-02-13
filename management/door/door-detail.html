@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Door Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet" />
+  <script
+    src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+  <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8"
+    data-border-radius="medium"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+
+
+</head>
+
+<body class="bg-gray-50 font-sans">
+  <div class="min-h-screen flex flex-col lg:flex-row">
+    <aside class="w-full lg:w-60 bg-white border-b lg:border-r border-gray-200 lg:fixed lg:h-full">
+      <a href="index.html">
+        <div class="px-6 py-4 border-b border-gray-200 flex gap-3">
+          <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Smart Access" class="h-8 ml-0" />
+          <span class="text-xl font-semibold mr-0 text-blue-600">Smart Access</span>
+        </div>
+      </a>
+      <nav class="mt-6 px-2 space-y-2">
+        <a href="index.html"
+          class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-house text-base w-5 mr-3"></i>
+          Dashboard
+        </a>
+        <a href="permission.html"
+          class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-key text-base w-5 mr-3"></i>
+          Access Permission
+        </a>
+        <a href="user.html"
+          class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-users text-base w-5 mr-3"></i>
+          User Management
+        </a>
+        <a href="#" id="device"
+          class="flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-walkie-talkie text-base w-5 mr-3"></i>
+            Device Management
+          </div>
+          <i id="chevron" class="fas fa-chevron-down text-gray-400 text-xs transition-transform"></i>
+        </a>
+        <div class="hidden space-y-2" id="device-submenu">
+          <a href="access.html"
+            class="flex pl-11 items-center px-4 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-100">
+            Access Control
+          </a>
+          <a href="cctv.html"
+            class="flex pl-11 items-center px-4 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-100">
+            CCTV
+          </a>
+        </div>
+        <a href="door.html"
+          class="flex items-center px-3 py-2 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-10 text-[#659BC8]">
+          <div class="flex items-center">
+            <i class="fas fa-door-open text-base w-5 mr-3"></i>
+            Door Access
+          </div>
+        </a>
+        <a href="report.html"
+          class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-file-waveform text-base w-5 mr-3"></i>
+          Reports
+        </a>
+      </nav>
+    </aside>
+    <main class="flex-1 lg:ml-60">
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+        <div class="px-6 sm:px-6 py-2 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
+          <h1 class="text-xl font-semibold text-gray-800">Door Detail</h1>
+          <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-400 hover:text-gray-500">
+              <i class="fas fa-bell"></i>
+              <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400"></span>
+            </button>
+            <div class="flex items-center p-2 rounded-md hover:cursor-pointer hover:bg-gray-50">
+              <img src="assets/img-account-circle-fill.png" class="h-8 w-8 rounded-full" alt="Profile" />
+              <span class="ml-3 text-sm font-medium text-gray-700">John Smith</span>
+              <i class="fas fa-chevron-down ml-2 text-gray-400 text-xs"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="flex-1 max-w-8xl w-full mx-auto px-6 py-6">
+        <div class="mb-6 flex justify-between items-start">
+          <div>
+            <div class="flex">
+              <div id="back-button"
+                class="relative -left-2 w-10 h-10 flex justify-center items-center rounded-full text-gray-500 hover:bg-gray-100 hover:text-black cursor-pointer"
+                onclick="window.history.back();">
+                <i class="fas fa-arrow-left text-lg"></i>
+              </div>
+              <h1 class="text-2xl font-medium text-gray-900 mt-0.5">Main Entrance</h1>
+            </div>
+          </div>
+          <div class="flex space-x-4">
+            <button class="rounded text-sm text-custom border border-custom px-4 py-2 hover:bg-custom/10">
+              <i class="fas fa-edit mr-2"></i>
+              Edit
+            </button>
+            <button class="rounded text-sm text-red-500 border border-red-500 px-4 py-2 hover:bg-red-500/10">
+              <i class="fas fa-trash mr-2"></i>
+              Delete
+            </button>
+          </div>
+        </div>
+
+        <div class="flex gap-6 mb-6">
+          <div class="w-2/3 bg-white rounded-lg shadow p-6">
+            <div class="flex justify-between mb-4">
+              <h2 class="text-lg font-semibold">
+                Floor Map:
+                <span>Basement</span>
+              </h2>
+              <div class="mt-1 flex items-center text-sm text-gray-500">
+                <span>Coordinates: X: 120, Y: 85</span>
+              </div>
+            </div>
+            <div id="image-container"
+              class="flex-1 h-[75vh] border-r border-gray-300 overflow-hidden relative cursor-move bg-black select-none">
+              <div id="image-wrapper" class="absolute top-0 left-0">
+                <img id="floor-map" src="assets/img-default-map.png" alt="Floor Map"
+                  class="object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+                  <i class="fas fa-location-dot absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[32px] text-red-600 cursor-pointer"
+                    title="Main Entrance"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-1/3 flex flex-col space-y-6 items-stretch">
+            <div class="bg-white rounded-lg shadow p-6">
+              <h3 class="text-lg font-semibold mb-4">Device Information</h3>
+              <div class="space-y-2">
+                <div class="flex justify-between items-end">
+                  <div>
+                    <p class="text-sm text-gray-400">Entry Device</p>
+                    <h3>DS-KAS321</h3>
+                  </div>
+                  <div class="text-xs text-green-600 font-medium px-2 py-1 rounded-full bg-green-50">
+                    <!-- <i class="fas fa-circle text-[10px]"></i> -->
+                    <span>
+                      Online
+                    </span>
+                  </div>
+                </div>
+                <div class="flex justify-between items-end">
+                  <div>
+                    <p class="text-sm text-gray-400">Exit Device</p>
+                    <h3>DS-KAS541</h3>
+                  </div>
+                  <div class="text-xs text-green-600 font-medium px-2 py-1 rounded-full bg-green-50">
+                    <!-- <i class="fas fa-circle text-[10px]"></i> -->
+                    <span>
+                      Online
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col bg-white p-6 rounded-lg border border-gray-200 h-full">
+              <h3 class="text-lg font-medium mb-4">Access Methods</h3>
+              <div id="accessChart" class="relative flex justify-center items-center w-full h-full"></div>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="w-2/3 bg-white rounded-lg shadow h-fit">
+            <div class="p-6 flex justify-between items-center border-b border-gray-200">
+              <h3 class="text-lg font-medium">Recent Activities</h3>
+              <a href="#" class="text-sm text-[#659BC8] font-medium hover:text-[#659BC8]/80">View All</a>
+            </div>
+            <div class="overflow-x-auto w-full">
+              <table class="w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visitor
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Access
+                      Method</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 mins ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Sarah Johnson</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Admin</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Face Recognition</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 mins ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Michael Chen</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">IT Staff</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Key Card</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 mins ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Unknown</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Denied</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 mins ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Unknown</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Denied</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 mins ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Unknown</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Denied</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="w-1/3 bg-white rounded-lg shadow">
+            <div class="p-6 flex justify-between items-center border-b border-gray-200">
+              <h3 class="text-lg font-medium">Authorized Users <span>(32)</span></h3>
+              <a href="#" class="text-sm text-[#659BC8] font-medium hover:text-[#659BC8]/80">View All</a>
+            </div>
+            <div class="py-2">
+              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                <div class="flex items-center">
+                  <img class="h-10 w-10 rounded-full" src="assets/img-account-circle-fill.png" alt="">
+                  <div class="ml-3">
+                    <div class="text-sm font-medium text-gray-900">Michael Brown</div>
+                    <div class="text-sm text-gray-500">Administrator</div>
+                  </div>
+                </div>
+                <button
+                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+              </div>
+              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                <div class="flex items-center">
+                  <img class="h-10 w-10 rounded-full" src="assets/img-account-circle-fill.png" alt="">
+                  <div class="ml-3">
+                    <div class="text-sm font-medium text-gray-900">Michael Brown</div>
+                    <div class="text-sm text-gray-500">Administrator</div>
+                  </div>
+                </div>
+                <button
+                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+              </div>
+              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                <div class="flex items-center">
+                  <img class="h-10 w-10 rounded-full" src="assets/img-account-circle-fill.png" alt="">
+                  <div class="ml-3">
+                    <div class="text-sm font-medium text-gray-900">Michael Brown</div>
+                    <div class="text-sm text-gray-500">Administrator</div>
+                  </div>
+                </div>
+                <button
+                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+              </div>
+              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                <div class="flex items-center">
+                  <img class="h-10 w-10 rounded-full" src="assets/img-account-circle-fill.png" alt="">
+                  <div class="ml-3">
+                    <div class="text-sm font-medium text-gray-900">Michael Brown</div>
+                    <div class="text-sm text-gray-500">Administrator</div>
+                  </div>
+                </div>
+                <button
+                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+              </div>
+              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                <div class="flex items-center">
+                  <img class="h-10 w-10 rounded-full" src="assets/img-account-circle-fill.png" alt="">
+                  <div class="ml-3">
+                    <div class="text-sm font-medium text-gray-900">Michael Brown</div>
+                    <div class="text-sm text-gray-500">Administrator</div>
+                  </div>
+                </div>
+                <button
+                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const deviceMenu = document.querySelector("#device-submenu");
+      const toggleButton = document.querySelector("#device");
+      const chevronIcon = document.querySelector("#chevron");
+
+      toggleButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        deviceMenu.classList.toggle("hidden");
+        chevronIcon.classList.toggle("rotate-180");
+      });
+    });
+  </script>
+
+  <script>
+    function closeModal() {
+      document.getElementById('door-detail').style.display = 'none';
+    }
+
+    document.getElementById('cancelModal').addEventListener('click', closeModal);
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+
+    document.getElementById('door-detail').addEventListener('click', function (event) {
+      // Pastikan klik terjadi pada overlay, bukan pada konten modal
+      if (event.target === this) {
+        closeModal();
+      }
+    });
+  </script>
+
+  <script>
+    function switchTab(tabName) {
+      const doorsTab = document.getElementById('doorsTab');
+      const filter = document.getElementById('filter');
+      const floorsTab = document.getElementById('floorsTab');
+      const tabs = document.querySelectorAll('nav button');
+
+      if (tabName === 'doors') {
+        doorsTab.classList.remove('hidden');
+        filter.classList.remove('hidden');
+        floorsTab.classList.add('hidden');
+        tabs[0].classList.add('border-custom', 'text-custom');
+        tabs[0].classList.remove('border-transparent', 'text-gray-500');
+        tabs[1].classList.remove('border-custom', 'text-custom');
+        tabs[1].classList.add('border-transparent', 'text-gray-500');
+      } else {
+        doorsTab.classList.add('hidden');
+        filter.classList.add('hidden');
+        floorsTab.classList.remove('hidden');
+        tabs[1].classList.add('border-custom', 'text-custom');
+        tabs[1].classList.remove('border-transparent', 'text-gray-500');
+        tabs[0].classList.remove('border-custom', 'text-custom');
+        tabs[0].classList.add('border-transparent', 'text-gray-500');
+      }
+    }
+  </script>
+
+  <script>
+    const accessChart = echarts.init(document.getElementById('accessChart'));
+    const option = {
+      animation: false, tooltip: { trigger: 'item' },
+      legend: { orient: 'horizontal', left: 'center', bottom: '0%' },
+      series: [{
+        name: 'Access Method',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        center: ['50%', '40%'],
+        avoidLabelOverlap: false,
+        itemStyle: { borderRadius: 0, borderColor: '#fff', borderWidth: 2 },
+        label: { show: false, position: 'center' },
+        emphasis: { label: { show: true, fontSize: '14', fontWeight: 'bold' } },
+        labelLine: { show: false },
+        data: [
+          { value: 40, name: 'Face Recognition' },
+          { value: 25, name: 'Fingerprint' },
+          { value: 20, name: 'Key Card' },
+          { value: 15, name: 'Remote Access' }
+        ]
+      }]
+    };
+    accessChart.setOption(option);
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const imageContainer = document.getElementById("image-container");
+      const imageWrapper = document.getElementById("image-wrapper");
+      const floorMap = document.getElementById("floor-map");
+      const locationIcon = document.getElementById("location-icon");
+      let panzoomInstance;
+
+      function getImageSize(image) {
+        return new Promise((resolve) => {
+          const tempImg = new Image();
+          tempImg.src = image.src;
+          tempImg.onload = () => resolve({ width: tempImg.naturalWidth, height: tempImg.naturalHeight });
+        });
+      }
+
+      async function updateMinScale() {
+        const containerRect = imageContainer.getBoundingClientRect();
+        const imgSize = await getImageSize(floorMap);
+        const scaleX = containerRect.width / imgSize.width;
+        const scaleY = containerRect.height / imgSize.height;
+        return Math.max(scaleX, scaleY);
+      }
+
+      async function initPanzoom() {
+        const minScale = await updateMinScale();
+        if (panzoomInstance) {
+          panzoomInstance.destroy();
+        }
+
+        panzoomInstance = Panzoom(imageWrapper, {
+          maxScale: 5,
+          minScale: minScale,
+          contain: "outside",
+        });
+
+        imageWrapper.style.width = `${floorMap.naturalWidth}px`;
+        imageWrapper.style.height = `${floorMap.naturalHeight}px`;
+
+        setTimeout(() => {
+          const containerRect = imageContainer.getBoundingClientRect();
+          const imageRect = imageWrapper.getBoundingClientRect();
+
+          console.log("Container:", containerRect);
+          console.log("Image Wrapper:", imageRect);
+
+          // Hitung titik tengah container
+          const containerCenterX = containerRect.left + containerRect.width / 2;
+          const containerCenterY = containerRect.top + containerRect.height / 2;
+
+          // Hitung titik tengah image
+          const imageCenterX = imageRect.left + imageRect.width / 2;
+          const imageCenterY = imageRect.top + imageRect.height / 2;
+
+          // Hitung jarak yang harus dikoreksi
+          const deltaX = containerCenterX - imageCenterX;
+          const deltaY = containerCenterY - imageCenterY;
+
+          console.log("Delta X:", deltaX, "Delta Y:", deltaY);
+
+          if (panzoomInstance) {
+            panzoomInstance.pan(deltaX, deltaY * 0); // Geser otomatis ke tengah
+          }
+
+        }, 200); // Timeout lebih lama supaya tidak bentrok dengan event lain
+
+        imageWrapper.addEventListener("wheel", panzoomInstance.zoomWithWheel);
+      }
+
+
+      // **Load Panzoom saat halaman dimuat**
+      window.onload = function () {
+        setTimeout(() => {
+          initPanzoom().then(() => {
+            setTimeout(() => {
+              if (panzoomInstance) {
+                panzoomInstance.zoom(panzoomInstance.getScale());
+                panzoomInstance.pan(0, 0);
+              }
+            }, 100);
+          });
+        }, 50);
+      };
+
+      // **Update saat resize atau gambar berubah**
+      window.addEventListener("resize", () => initPanzoom());
+      floorMap.addEventListener("load", () => initPanzoom());
+    });
+  </script>
+
+</body>
+
+</html>

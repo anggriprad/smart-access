@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+  <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8" data-border-radius="medium"></script>
+</head>
+
+<body>
+  <div id="image-container" class="w-[600px] h-[600px] overflow-hidden relative border border-gray-300 cursor-grab">
+    <img src="assets/img-map.png" alt="Floor Map" class="min-w-full top-0 left-0 pointer-events-none select-none max-w-none">
+  </div>
+  
+  <script>
+    const imageContainer = document.getElementById("image-container");
+    const image = imageContainer.querySelector("img");
+
+    let isDragging = false;
+    let startX, startY;
+    let lastX = 0, lastY = 0;
+    let currentX = 0, currentY = 0;
+
+    function onMouseDown(e) {
+      isDragging = true;
+      startX = e.clientX - lastX;
+      startY = e.clientY - lastY;
+      imageContainer.style.cursor = "grabbing";
+    }
+
+    function onMouseMove(e) {
+      if (!isDragging) return;
+
+      // Hitung perbedaan posisi sejak drag dimulai
+      currentX = e.clientX - startX;
+      currentY = e.clientY - startY;
+
+      // Batas maksimal geser
+      const maxX = imageContainer.clientWidth - image.clientWidth;
+      const maxY = imageContainer.clientHeight - image.clientHeight;
+
+      // Pastikan gambar tidak keluar dari batas
+      currentX = Math.min(0, Math.max(currentX, maxX));
+      currentY = Math.min(0, Math.max(currentY, maxY));
+
+      // Update posisi gambar secara real-time
+      image.style.transform = `translate(${currentX}px, ${currentY}px)`;
+    }
+
+    function onMouseUp() {
+      isDragging = false;
+      lastX = currentX; // Simpan posisi terakhir agar bisa drag dari titik akhir
+      lastY = currentY;
+      imageContainer.style.cursor = "grab";
+    }
+
+    // Event Listener untuk Mouse
+    imageContainer.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+
+    // Event Listener untuk Touch (Agar bisa digeser di Mobile)
+    imageContainer.addEventListener("touchstart", (e) => onMouseDown(e.touches[0]));
+    document.addEventListener("touchmove", (e) => onMouseMove(e.touches[0]));
+    document.addEventListener("touchend", onMouseUp);
+
+  </script>
+  
+</body>
+</html>

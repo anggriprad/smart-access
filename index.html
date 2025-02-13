@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Access Control Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+  <script
+    src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+  <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8"
+    data-border-radius="small"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <style>
+    .flatpickr-calendar {
+      z-index: 1000 !important;
+      /* Supaya nggak ketutup elemen lain */
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="min-h-screen flex flex-col lg:flex-row">
+    <aside class="w-full lg:w-60 bg-white border-b lg:border-r border-gray-200 lg:fixed lg:h-full">
+      <a href="/">
+        <div class="px-6 py-4 border-b border-gray-200 flex gap-3">
+          <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Smart Access" class="h-8 ml-0" />
+          <span class="text-xl font-semibold mr-0 text-blue-600">Smart Access</span>
+        </div>
+      </a>
+      <nav class="my-4 px-2 space-y-1">
+        <a href="/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
+          <i class="fas fa-house text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Dashboard
+        </a>
+        <a href="/log/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-key text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Activity Log
+        </a>
+        <a href="/guest/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-calendar-alt text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Guest Reservation
+        </a>
+        <a href="/door/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-door-open text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Door Access
+          </div>
+        </a>
+        <a href="/cctv/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-video text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            CCTV
+          </div>
+        </a>
+        <!-- <a href="/user/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-users text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Users
+        </a>
+        <a href="/device/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-tablet-screen-button text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Devices
+        </a> -->
+        <a href="#" id="management"
+          class="flex items-center justify-between p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-gear text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Access Management
+          </div>
+          <i id="chevron" class="fas fa-chevron-down text-gray-400 text-xs transition-transform"></i>
+        </a>
+        <div class="space-y-1 hidden" id="management-submenu">
+          <a href="/management/door/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            Door Management
+          </a>
+          <a href="/management/user/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            User Management
+          </a>
+          <a href="/management/device/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            Device Management
+          </a>
+          <a href="/management/cctv/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            CCTV Management
+          </a>
+        </div>
+      </nav>
+    </aside>
+    <main class="flex-1 lg:ml-60">
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="px-6 sm:px-6 py-2 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
+          <h1 class="text-xl font-semibold text-gray-800">Dashboard</h1>
+          <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-400 hover:text-gray-500">
+              <i class="fas fa-bell"></i>
+              <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400"></span>
+            </button>
+            <div id="openModal" class="p-2 flex items-center rounded-md hover:cursor-pointer hover:bg-gray-50">
+              <img src="/assets/img-account-circle-fill.png" class="h-8 w-8 rounded-full" alt="Profile" />
+              <span class="ml-3 text-sm font-medium text-gray-700">John Smith</span>
+              <i class="fas fa-chevron-down ml-2 text-gray-400 text-xs"></i>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Overlay -->
+        <div id="modalOverlay" class="fixed flex inset-0 bg-black/10 justify-end ml-0 hidden">
+          <div class="h-fit bg-white rounded-lg shadow-xl translate-y-4 -translate-x-4 w-56">
+            <div class="flex flex-col justify-center items-center p-4 border-b border-gray-200">
+              <img src="/assets/img-account-circle-fill.png" alt="" class="w-20">
+              <h3 class="text-lg font-medium text-center">John Smith</h3>
+              <span class="text-sm text-center text-gray-600">john.smith@example.com</span>
+            </div>
+            <ul class="py-2">
+              <li>
+                <a href="">
+                  <div class="flex px-2 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                    <i class="fas fa-gear flex justify-center items-center w-8 mr-2"></i>
+                    <span>Settings</span>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <div class="flex px-2 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                    <i class="fas fa-sign-out-alt flex justify-center items-center w-8 mr-2"></i>
+                    <span>Log out</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+        </div>
+      </header>
+
+      <div class="p-6">
+        <!-- <div class="flex justify-between items-center mb-6">
+          <h2 class="text-lg font-semibold">Overview</h2>
+          <div class="flex gap-2">
+            <select id="date-range" class="rounded border-gray-300 text-sm cursor-pointer">
+              <option value="today">Today</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="this-week">This Week</option>
+              <option value="this-month">This Month</option>
+              <option value="custom">Custom Date Range</option>
+            </select>
+            <input id="custom-date" type="text" class="rounded border-gray-300 text-sm cursor-pointer hidden"
+              placeholder="Select Date Range">
+
+            <select id="time-range" class="rounded border-gray-300 text-sm cursor-pointer">
+              <option value="all-time">All Time</option>
+              <option value="custom">Custom Time Range</option>
+            </select>
+            <div id="custom-time-group" class="flex gap-2 hidden">
+              <input id="start-time" type="time" class="rounded border-gray-300 text-sm cursor-pointer" step="600"
+                min="00:00" max="23:50">
+              <input id="end-time" type="time" class="rounded border-gray-300 text-sm cursor-pointer" step="600"
+                min="00:00" max="23:50">
+            </div>
+          </div>
+        </div> -->
+        <div class="flex gap-4 mb-6">
+
+          <div class="bg-white p-4 rounded-lg border border-gray-200 flex-1">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Today's Activities</p>
+                <p class="text-2xl font-semibold text-gray-900">1,234</p>
+              </div>
+              <i class="fas fa-chart-line text-blue-600 text-lg"></i>
+              <!-- <div class="flex justify-center items-center bg-green-600/10 w-12 h-12 rounded-full">
+              </div> -->
+            </div>
+            <div class="mt-4">
+              <p class="text-sm text-green-600">
+                <i class="fas fa-arrow-up mr-1"></i>
+                12% from yesterday
+              </p>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200 flex-1">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Today's Entries</p>
+                <p class="text-2xl font-semibold text-gray-900">720</p>
+              </div>
+              <i class="fas fa-sign-in-alt text-green-600 text-lg"></i>
+              <!-- <div class="flex justify-center items-center bg-green-600/10 w-12 h-12 rounded-full">
+              </div> -->
+            </div>
+            <div class="mt-4">
+              <p class="text-sm text-green-600">
+                <i class="fas fa-arrow-up mr-1"></i>
+                12% from yesterday
+              </p>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200 flex-1">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Today's Exits</p>
+                <p class="text-2xl font-semibold text-gray-900">514</p>
+              </div>
+              <i class="fas fa-sign-out-alt text-red-600 text-lg"></i>
+              <!-- <div class="flex justify-center items-center bg-green-600/10 w-12 h-12 rounded-full">
+              </div> -->
+            </div>
+            <div class="mt-4">
+              <p class="text-sm text-red-600">
+                <i class="fas fa-arrow-down mr-1"></i>
+                -5% from yesterday
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg border border-gray-200 flex-1">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Unique Users</p>
+                <p class="text-2xl font-semibold text-gray-900">342</p>
+              </div>
+              <i class="fas fa-users text-purple-600 text-lg"></i>
+              <!-- <div class="flex justify-center items-center bg-green-600/10 w-12 h-12 rounded-full">
+              </div> -->
+            </div>
+            <div class="mt-4">
+              <p class="text-sm text-green-600">
+                <i class="fas fa-arrow-up mr-1"></i>
+                5% from average
+              </p>
+            </div>
+          </div>
+          <!-- <div class="bg-white p-4 rounded-lg border border-gray-200 flex-1">
+            <div class="flex items-center">
+              <div class="p-2 bg-blue-50 rounded-lg">
+                <i class="fas fa-door-open text-blue-600"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm text-gray-500">Total Doors</p>
+                <p class="text-2xl font-semibold text-gray-900">21</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200 flex-1">
+            <div class="flex items-center">
+              <div class="p-2 bg-green-50 rounded-lg">
+                <i class="fas fa-sign-in-alt text-green-600"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm text-gray-500">Total Entries</p>
+                <p class="text-2xl font-semibold text-gray-900">1,234</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200 flex-1">
+            <div class="flex items-center">
+              <div class="p-2 bg-red-50 rounded-lg">
+                <i class="fas fa-sign-out-alt text-red-600"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm text-gray-500">Total Exits</p>
+                <p class="text-2xl font-semibold text-gray-900">987</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200 flex-1">
+            <div class="flex items-center">
+              <div class="p-2 bg-yellow-50 rounded-lg">
+                <i class="fas fa-microchip text-yellow-600"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm text-gray-500">Active Devices</p>
+                <p class="text-2xl font-semibold text-gray-900">42</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-gray-200 flex-1">
+            <div class="flex items-center">
+              <div class="p-2 bg-purple-50 rounded-lg">
+                <i class="fas fa-users text-purple-600"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-sm text-gray-500">Unique Users</p>
+                <p class="text-2xl font-semibold text-gray-900">523</p>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="grid grid-cols-6 gap-6 mb-6">
+          <!-- <div class="w-2/3 bg-white rounded-lg border border-gray-200 p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h2 class="text-lg font-semibold">Basement</h2>
+                <div class="mt-1 flex items-center text-sm text-gray-500">
+                  <span>4 Doors</span>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <div
+                  class="flex justify-center items-center w-8 h-8 bg-white rounded border border-gray-100 text-gray-300">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+                <div
+                  class="flex justify-center items-center w-8 h-8 bg-white rounded border border-gray-200 hover:bg-gray-50 cursor-pointer">
+                  <i class="fas fa-chevron-right"></i>
+                </div>
+              </div>
+            </div>
+            <div id="image-container-1"
+              class="flex-1 h-[75vh] border-r border-gray-300 overflow-hidden relative cursor-move bg-black select-none">
+              <div id="image-wrapper" class="absolute top-0 left-0">
+                <img id="floor-map" src="/assets/img-default-map.png" alt="Floor Map"
+                  class="object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+                <div class="absolute top-[80px] left-[160px]">
+                  <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+                  <a href="door-detail.html">
+                    <i class="fas fa-location-dot absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[32px] text-red-600 cursor-pointer"
+                      title="Research Lab"></i>
+                  </a>
+                </div>
+                <div class="absolute top-[200px] left-[580px]">
+                  <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+                  <a href="door-detail.html">
+                    <i class="fas fa-location-dot absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[32px] text-red-600 cursor-pointer"
+                      title="Storage Area"></i>
+                  </a>
+                </div>
+                <div class="absolute top-[320px] left-[170px]">
+                  <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+                  <a href="door-detail.html">
+                    <i class="fas fa-location-dot absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[32px] text-red-600 cursor-pointer"
+                      title="Server Room"></i>
+                  </a>
+                </div>
+                <div class="absolute bottom-[20px] left-[400px]">
+                  <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+                  <a href="door-detail.html">
+                    <i class="fas fa-location-dot absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[32px] text-red-600 cursor-pointer"
+                      title="Main Entrance"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="col-span-4 flex flex-col relative bg-white p-6 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-gray-900">Activity Trends</h3>
+              <div class="flex space-x-2">
+                <button class="!rounded-button px-3 py-1 text-sm bg-custom text-white">Daily</button>
+                <button class="!rounded-button px-3 py-1 text-sm bg-gray-100 text-gray-600">Weekly</button>
+                <button class="!rounded-button px-3 py-1 text-sm bg-gray-100 text-gray-600">Monthly</button>
+              </div>
+            </div>
+            <div id="activityChart" class="h-64 w-full"></div>
+          </div>
+          <div class="row-span-3 col-span-2 space-y-6">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+              <h3 class="text-lg font-semibold text-gray-900">Access Methods</h3>
+              <div id="accessChart" class="h-64"></div>
+            </div>
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Total Door by Floor</h3>
+              <div class="space-y-4">
+                <div class="p-4 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <span>Basement</span>
+                    </div>
+                    <span class="text-blue-600 text-sm font-semibold">4 doors</span>
+                  </div>
+                </div>
+                <div class="p-4 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <span>Floor 1</span>
+                    </div>
+                    <span class="text-blue-600 text-sm font-semibold">12 doors</span>
+                  </div>
+                </div>
+                <div class="p-4 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <span>Floor 2</span>
+                    </div>
+                    <span class="text-blue-600 text-sm font-semibold">6 doors</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Device Status</h3>
+              <div class="space-y-4">
+                <div class="p-4 bg-gray-50 rounded-lg">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <span>Online Devices</span>
+                    </div>
+                    <span
+                      class="px-1 py-0.5 min-w-5 text-center rounded bg-green-100 text-green-700 text-sm font-semibold">
+                      93
+                    </span>
+                  </div>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-lg">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <span>Offline Devices</span>
+                    </div>
+                    <span class="px-1 py-0.5 min-w-5 text-center rounded bg-red-100 text-red-700 text-sm font-semibold">
+                      1
+                    </span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between p-4 bg-red-50 rounded-lg">
+                  <div class="flex items-center"><i class="fas fa-exclamation-triangle text-red-500 mr-4"></i>
+                    <div>
+                      <p class="text-sm font-medium text-gray-900">HIKVISION 001-KSA</p>
+                      <p class="text-sm text-red-600">Main Entrance</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-4 flex flex-col relative bg-white p-6 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-gray-900">Door Activities</h3>
+              <select id="date-range" class="rounded border-gray-300 text-sm pt-1 pb-1 cursor-pointer">
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="this-week">This Week</option>
+                <option value="this-month">This Month</option>
+              </select>
+            </div>
+            <div id="doorDistributionChart" class="h-56 w-full"></div>
+          </div>
+          <div class="col-span-4 flex flex-col relative bg-white p-6 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-gray-900">Room Occupancy</h3>
+              <select id="date-range" class="rounded border-gray-300 text-sm pt-1 pb-1 cursor-pointer">
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="this-week">This Week</option>
+                <option value="this-month">This Month</option>
+              </select>
+            </div>
+            <div id="roomOccupancyChart" class="h-56 w-full"></div>
+          </div>
+
+          <!-- <div class="bg-white p-6 rounded-lg border border-gray-200">
+            <h3 class="text-base font-medium text-gray-900 mb-4">Quick Actions</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <button
+                class="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 !rounded-button">
+                <i class="fas fa-user-plus text-custom mb-2"></i>
+                <span class="text-sm text-gray-600">Add User</span>
+              </button>
+              <button
+                class="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 !rounded-button">
+                <i class="fas fa-door-closed text-custom mb-2"></i>
+                <span class="text-sm text-gray-600">Add Device</span>
+              </button>
+              <button
+                class="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 !rounded-button">
+                <i class="fas fa-file-alt text-custom mb-2"></i>
+                <span class="text-sm text-gray-600">Reports</span>
+              </button>
+              <button
+                class="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 !rounded-button">
+                <i class="fas fa-key text-custom mb-2"></i>
+                <span class="text-sm text-gray-600">Permissions</span>
+              </button>
+            </div>
+          </div> -->
+          <div class="col-span-6 bg-white rounded-lg border border-gray-200">
+            <div class="p-6 flex justify-between items-center border-b border-gray-200">
+              <h3 class="text-lg font-medium text-gray-900">Recent Activities</h3>
+              <a href="#" class="text-sm text-[#659BC8] font-medium hover:text-[#659BC8]/80">View All</a>
+            </div>
+            <div class="overflow-x-auto w-full">
+              <table class="w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Door</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visitor
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Access
+                      Method</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 mins ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Main Entrance</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Sarah Johnson</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Admin</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Face Recognition</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 mins ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Server Room</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Michael Chen</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">IT Staff</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Key Card</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 mins ago</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Conference Room</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Unknown</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <span
+                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Denied</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <div class="p-6 space-y-4">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                  <div class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
+                    <i class="fas fa-check text-green-600"></i>
+                  </div>
+                </div>
+                <div class="flex justify-between w-full">
+                  <div>
+                    <p class="text-sm font-medium text-gray-900">Main Entrance</p>
+                    <p class="text-sm text-gray-500">John Doe</p>
+                  </div>
+                  <div class="flex flex-col items-end">
+                    <p class="text-xs text-gray-400 mb-1">2 minutes ago</p>
+                    <p class="py-1 px-2 rounded-full bg-purple-100 w-fit text-xs font-medium text-purple-600">Fingerprint</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                  <div class="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center">
+                    <i class="fas fa-times text-red-600"></i>
+                  </div>
+                </div>
+                <div class="flex justify-between w-full">
+                  <div>
+                    <p class="text-sm font-medium text-gray-900">Server Room</p>
+                    <p class="text-sm text-gray-500">Unknown</p>
+                  </div>
+                  <div class="flex flex-col items-end">
+                    <p class="text-xs text-gray-400 mb-1">5 minutes ago</p>
+                    <p class="py-1 px-2 rounded-full bg-blue-100 w-fit text-xs font-medium text-blue-600">Face</p>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+
+        </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const deviceMenu = document.querySelector("#management-submenu");
+      const toggleButton = document.querySelector("#management");
+      const chevronIcon = document.querySelector("#chevron");
+
+      toggleButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        deviceMenu.classList.toggle("hidden");
+        chevronIcon.classList.toggle("rotate-180");
+      });
+    });
+  </script>
+
+  <script>
+    const activityChart = echarts.init(document.getElementById('activityChart'));
+    const accessChart = echarts.init(document.getElementById('accessChart'));
+    const doorDistributionChart = echarts.init(document.getElementById('doorDistributionChart'));
+    const roomOccupancyChart = echarts.init(document.getElementById('roomOccupancyChart'));
+
+    const activityOption = {
+      animation: false,
+      tooltip: {
+        trigger: 'axis'
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '0%',
+        top: '5%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: [
+          '00:00', '02:00', '04:00', '06:00', '08:00', '10:00',
+          '12:00', '14:00', '16:00', '18:00', '20:00', '22:00',
+        ]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [
+          0, 10, 20, 30, 120, 135,
+          180, 150, 100, 65, 20, 5,
+        ],
+        type: 'line',
+        smooth: true,
+        color: '#659BC8',
+      }]
+    };
+    const accessOption = {
+      animation: false, tooltip: { trigger: 'item' },
+      legend: { orient: 'horizontal', left: 'center', bottom: '0%' },
+      series: [{
+        type: 'pie',
+        radius: ['40%', '70%'],
+        center: ['50%', '40%'],
+        avoidLabelOverlap: false,
+        itemStyle: { borderRadius: 0, borderColor: '#fff', borderWidth: 2 },
+        label: { show: false, position: 'center' },
+        emphasis: { label: { show: true, fontSize: '14', fontWeight: 'bold' } },
+        labelLine: { show: false },
+        data: [
+          { value: 40, name: 'Face Recognition' },
+          { value: 25, name: 'Fingerprint' },
+          { value: 20, name: 'Key Card' },
+          { value: 15, name: 'Remote Access' }
+        ]
+      }]
+    };
+    const doorDistributionOption = {
+      animation: false,
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '0%',
+        top: '5%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+      },
+      yAxis: {
+        type: 'category',
+        data: [
+          'Other Doors',
+          'Office Area',
+          'Server Room',
+          'Main Entrance',
+        ]
+      },
+      series: [{
+        type: 'bar',
+        data: [
+          20,
+          20,
+          25,
+          35,
+        ],
+        color: '#659BC8',
+      }]
+    };
+    const roomOccupancyOption = {
+      animation: false,
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '0%',
+        top: '5%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+      },
+      yAxis: {
+        type: 'category',
+        data: [
+          'Other Doors',
+          'Office Area',
+          'Server Room',
+          'Main Entrance',
+        ]
+      },
+      series: [{
+        type: 'bar',
+        data: [
+          20,
+          20,
+          25,
+          35,
+        ],
+        color: 'green'
+      }]
+    };
+    accessChart.setOption(accessOption);
+    activityChart.setOption(activityOption);
+    doorDistributionChart.setOption(doorDistributionOption);
+    roomOccupancyChart.setOption(roomOccupancyOption);
+    window.addEventListener('resize', function () {
+      activityChart.resize();
+      accessChart.resize();
+      doorDistributionChart.resize();
+      roomOccupancyChart.resize();
+    });
+  </script>
+
+<script>
+  // Get elements
+  const openModalButton = document.getElementById('openModal');
+  const closeModalButton = document.getElementById('closeModal');
+  const modalOverlay = document.getElementById('modalOverlay');
+
+  // Open modal
+  openModalButton.addEventListener('click', () => {
+    modalOverlay.classList.remove('hidden');
+  });
+
+  // Close modal by clicking outside the modal
+  modalOverlay.addEventListener('click', (event) => {
+    if (event.target === modalOverlay) {
+      modalOverlay.classList.add('hidden');
+    }
+  });
+</script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const imageContainer = document.getElementById("image-container-1");
+      const imageWrapper = document.getElementById("image-wrapper");
+      const floorMap = document.getElementById("floor-map");
+      const locationIcon = document.getElementById("location-icon");
+      let panzoomInstance;
+
+      function getImageSize(image) {
+        return new Promise((resolve) => {
+          const tempImg = new Image();
+          tempImg.src = image.src;
+          tempImg.onload = () => resolve({ width: tempImg.naturalWidth, height: tempImg.naturalHeight });
+        });
+      }
+
+      async function updateMinScale() {
+        const containerRect = imageContainer.getBoundingClientRect();
+        const imgSize = await getImageSize(floorMap);
+        const scaleX = containerRect.width / imgSize.width;
+        const scaleY = containerRect.height / imgSize.height;
+        return Math.max(scaleX, scaleY);
+      }
+
+      async function initPanzoom() {
+        const minScale = await updateMinScale();
+        if (panzoomInstance) {
+          panzoomInstance.destroy();
+        }
+
+        panzoomInstance = Panzoom(imageWrapper, {
+          maxScale: 5,
+          minScale: minScale,
+          contain: "outside",
+        });
+
+        imageWrapper.style.width = `${floorMap.naturalWidth}px`;
+        imageWrapper.style.height = `${floorMap.naturalHeight}px`;
+
+        setTimeout(() => {
+          const containerRect = imageContainer.getBoundingClientRect();
+          const imageRect = imageWrapper.getBoundingClientRect();
+
+          console.log("Container:", containerRect);
+          console.log("Image Wrapper:", imageRect);
+
+          // Hitung titik tengah container
+          const containerCenterX = containerRect.left + containerRect.width / 2;
+          const containerCenterY = containerRect.top + containerRect.height / 2;
+
+          // Hitung titik tengah image
+          const imageCenterX = imageRect.left + imageRect.width / 2;
+          const imageCenterY = imageRect.top + imageRect.height / 2;
+
+          // Hitung jarak yang harus dikoreksi
+          const deltaX = containerCenterX - imageCenterX;
+          const deltaY = containerCenterY - imageCenterY;
+
+          console.log("Delta X:", deltaX, "Delta Y:", deltaY);
+
+          if (panzoomInstance) {
+            panzoomInstance.pan(deltaX, deltaY * 0); // Geser otomatis ke tengah
+          }
+
+        }, 200); // Timeout lebih lama supaya tidak bentrok dengan event lain
+
+        imageWrapper.addEventListener("wheel", panzoomInstance.zoomWithWheel);
+      }
+
+
+      // **Load Panzoom saat halaman dimuat**
+      window.onload = function () {
+        setTimeout(() => {
+          initPanzoom().then(() => {
+            setTimeout(() => {
+              if (panzoomInstance) {
+                panzoomInstance.zoom(panzoomInstance.getScale());
+                panzoomInstance.pan(0, 0);
+              }
+            }, 100);
+          });
+        }, 50);
+      };
+
+      // **Update saat resize atau gambar berubah**
+      window.addEventListener("resize", () => initPanzoom());
+      floorMap.addEventListener("load", () => initPanzoom());
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const dateRange = document.getElementById("date-range");
+      const customDate = document.getElementById("custom-date");
+      const timeRange = document.getElementById("time-range");
+      const customTimeGroup = document.getElementById("custom-time-group");
+      const startTime = document.getElementById("start-time");
+      const endTime = document.getElementById("end-time");
+
+      // Flatpickr untuk date range
+      flatpickr(customDate, {
+        mode: "range",
+        dateFormat: "d M y",
+        onOpen: function (selectedDates, dateStr, instance) {
+          instance.clear();
+        }
+      });
+
+      // Event listener untuk date range dropdown
+      dateRange.addEventListener("change", function () {
+        if (this.value === "custom") {
+          customDate.classList.remove("hidden");
+          customDate.click(); // Langsung buka date picker
+        } else {
+          customDate.classList.add("hidden");
+          customDate.value = "";
+        }
+      });
+
+      // Event listener untuk time range dropdown
+      timeRange.addEventListener("change", function () {
+        if (this.value === "custom") {
+          customTimeGroup.classList.remove("hidden");
+        } else {
+          customTimeGroup.classList.add("hidden");
+          startTime.value = "";
+          endTime.value = "";
+        }
+      });
+
+      function validateTimeRange() {
+        if (startTime.value >= endTime.value) {
+          alert("End Time must be bigger than Start Time");
+          endTime.value = "";
+        }
+      }
+
+      startTime.addEventListener("change", validateTimeRange);
+      endTime.addEventListener("change", validateTimeRange);
+    });
+  </script>
+</body>
+</html>

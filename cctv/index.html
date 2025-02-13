@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Access Control Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+  <script
+    src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+  <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8"
+    data-border-radius="small"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <style>
+    .flatpickr-calendar {
+      z-index: 1000 !important;
+      /* Supaya nggak ketutup elemen lain */
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="min-h-screen flex flex-col lg:flex-row">
+    <aside class="w-full lg:w-60 bg-white border-b lg:border-r border-gray-200 lg:fixed lg:h-full">
+      <a href="/">
+        <div class="px-6 py-4 border-b border-gray-200 flex gap-3">
+          <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Smart Access" class="h-8 ml-0" />
+          <span class="text-xl font-semibold mr-0 text-blue-600">Smart Access</span>
+        </div>
+      </a>
+      <nav class="my-4 px-2 space-y-1">
+        <a href="/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-house text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Dashboard
+        </a>
+        <a href="/log/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-key text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Activity Log
+        </a>
+        <a href="/guest/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-calendar-alt text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Guest Reservation
+        </a>
+        <a href="/door/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-door-open text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Door Access
+          </div>
+        </a>
+        <a href="/cctv/" class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
+          <div class="flex items-center">
+            <i class="fas fa-video text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            CCTV
+          </div>
+        </a>
+        <!-- <a href="/user/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-users text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Users
+        </a>
+        <a href="/device/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-tablet-screen-button text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Devices
+        </a> -->
+        <a href="#" id="management"
+          class="flex items-center justify-between p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-gear text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Access Management
+          </div>
+          <i id="chevron" class="fas fa-chevron-down text-gray-400 text-xs transition-transform"></i>
+        </a>
+        <div class="space-y-1 hidden" id="management-submenu">
+          <a href="/management/door/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            Door Management
+          </a>
+          <a href="/management/user/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            User Management
+          </a>
+          <a href="/management/device/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            Device Management
+          </a>
+          <a href="/management/cctv/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            CCTV Management
+          </a>
+        </div>
+      </nav>
+    </aside>
+    <main class="flex-1 lg:ml-60">
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="px-6 sm:px-6 py-2 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
+          <h1 class="text-xl font-semibold text-gray-800">CCTV</h1>
+          <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-400 hover:text-gray-500">
+              <i class="fas fa-bell"></i>
+              <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400"></span>
+            </button>
+            <div id="openModal" class="p-2 flex items-center rounded-md hover:cursor-pointer hover:bg-gray-50">
+              <img src="/assets/img-account-circle-fill.png" class="h-8 w-8 rounded-full" alt="Profile" />
+              <span class="ml-3 text-sm font-medium text-gray-700">John Smith</span>
+              <i class="fas fa-chevron-down ml-2 text-gray-400 text-xs"></i>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Overlay -->
+        <div id="modalOverlay" class="fixed flex inset-0 bg-black/10 justify-end ml-0 hidden">
+          <div class="h-fit bg-white rounded-lg shadow-xl translate-y-4 -translate-x-4 w-56">
+            <div class="flex flex-col justify-center items-center p-4 border-b border-gray-200">
+              <img src="/assets/img-account-circle-fill.png" alt="" class="w-20">
+              <h3 class="text-lg font-medium text-center">John Smith</h3>
+              <span class="text-sm text-center text-gray-600">john.smith@example.com</span>
+            </div>
+            <ul class="py-2">
+              <li>
+                <a href="">
+                  <div class="flex px-2 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                    <i class="fas fa-gear flex justify-center items-center w-8 mr-2"></i>
+                    <span>Settings</span>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <div class="flex px-2 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                    <i class="fas fa-sign-out-alt flex justify-center items-center w-8 mr-2"></i>
+                    <span>Log out</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+      </header>
+
+      <div class="p-6"></div>
+    </main>
+  </div>
+
+  <script>
+    // Get elements
+    const openModalButton = document.getElementById('openModal');
+    const closeModalButton = document.getElementById('closeModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    // Open modal
+    openModalButton.addEventListener('click', () => {
+      modalOverlay.classList.remove('hidden');
+    });
+
+    // Close modal by clicking outside the modal
+    modalOverlay.addEventListener('click', (event) => {
+      if (event.target === modalOverlay) {
+        modalOverlay.classList.add('hidden');
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const deviceMenu = document.querySelector("#management-submenu");
+      const toggleButton = document.querySelector("#management");
+      const chevronIcon = document.querySelector("#chevron");
+
+      toggleButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        deviceMenu.classList.toggle("hidden");
+        chevronIcon.classList.toggle("rotate-180");
+      });
+    });
+  </script>
+</body>
+
+</html>

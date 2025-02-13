@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Door - Access Control System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+  <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8" data-border-radius="medium"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="min-h-screen flex flex-col">
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+          <div class="px-4 sm:px-4 py-2 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
+              <a href="index.html">
+                <div class="px-4 flex gap-4">
+                    <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Smart Access" class="h-8 ml-0"/>
+                    <span class="text-xl font-semibold mr-0 text-blue-600">Smart Access</span>
+                </div>
+              </a>
+              <div class="flex items-center space-x-4">
+                  <button class="relative p-2 text-gray-400 hover:text-gray-500">
+                      <i class="fas fa-bell"></i>
+                      <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400"></span>
+                  </button>
+                  <div class="flex items-center p-2 hover:cursor-pointer hover:bg-gray-50">
+                      <img src="assets/img-account-circle-fill.png" class="h-8 w-8 rounded-full" alt="Profile"/>
+                      <span class="ml-3 text-sm font-medium text-gray-700">John Smith</span>
+                      <i class="fas fa-chevron-down ml-2 text-gray-400 text-xs"></i>
+                  </div>
+              </div>
+          </div>
+      </header>
+      <main class="flex-grow">
+        <div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+          <div class="bg-white shadow rounded-lg">
+            <div class="px-6 py-5 border-b border-gray-200">
+                <h1 class="text-2xl font-semibold text-gray-900">Add New Door</h1>
+            </div>
+            <form class="space-y-6 px-6 py-6">
+              <div class="space-y-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Door Name <span class="text-red-500">*</span></label>
+                  <input type="text" required="" class="mt-1 block w-full border-gray-300 focus:border-custom focus:ring-custom rounded" placeholder="Enter door name"/>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Floor <span class="text-red-500">*</span></label>
+                  <select id="floor-select" required="" class="mt-1 block w-full border-gray-300 focus:border-custom focus:ring-custom rounded">
+                    <option value="">-- Select floor --</option>
+                    <option value="basement">Basement</option>
+                    <option value="floor1">Floor 1</option>
+                    <option value="floor2">Floor 2</option>
+                  </select>
+                  <div id="map" class="hidden">
+                    <div class="mt-2">
+                      <div class="flex justify-between items-center w-full py-2">
+                        <div class="text-gray-400 font-medium text-sm py-1">Coordinate 
+                          <span class="text-blue-600">
+                            (<span id="x-coordinate">-</span>, 
+                            <span id="y-coordinate">-</span>)
+                          </span>
+                        </div>
+                        <label id="floor-label" class="px-2 py-1 text-sm font-semibold bg-gray-100 text-gray-700 rounded-md"></label>
+                        <!-- <div>
+                          <label for="y-coordinate">Y Coordinate:</label>
+                          <input type="text" id="y-coordinate" readonly><br><br>                  
+                        </div> -->            
+                      </div>
+                      <div class="flex items-center justify-center w-full bg-gray-50">
+                        <div id="canvas-container" class="relative max-w-full">
+                          <canvas id="canvas" class="border max-w-full"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex gap-4">
+                  <div class="w-full">
+                    <label class="block text-sm font-medium text-gray-700">Entri Device <span class="text-red-500">*</span></label>
+                    <select required="" class="mt-1 block w-full border-gray-300 focus:border-custom focus:ring-custom rounded">
+                        <option value="">-- Select device --</option>
+                        <option value="internal">DS-KAS321</option>
+                        <option value="guest">DS-KAS541</option>
+                        <option value="admin">DS-K1T670MX-WB</option>
+                        <option value="author">DS-K1T670MX-WE</option>
+                    </select>
+                  </div>
+                  <div class="w-full">
+                    <label class="block text-sm font-medium text-gray-700">Exit Device <span class="text-red-500">*</span></label>
+                    <select required="" class="mt-1 block w-full border-gray-300 focus:border-custom focus:ring-custom rounded">
+                        <option value="">-- Select device --</option>
+                        <option value="internal">DS-KAS321</option>
+                        <option value="guest">DS-KAS541</option>
+                        <option value="admin">DS-K1T670MX-WB</option>
+                        <option value="author">DS-K1T670MX-WE</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-3">User Access Permission</label>
+                  <div id="door-access-list" class="flex flex-col gap-4 bg-gray-50 border border-gray-100 rounded-lg p-4 max-h-[360px] overflow-y-auto">
+                    <div id="empty" class="text-center py-8">
+                      <i class="fas fa-user-shield text-gray-400 text-4xl mb-4"></i>
+                      <p class="text-gray-500 text-sm">No users added yet. Please select at least one user.</p>
+                    </div>
+                  </div>
+                  <div class="flex justify-center mt-4">
+                    <button
+                      type="button"
+                      class="rounded-md bg-white px-4 py-2 text-sm font-medium inline-flex items-center text-custom border border-custom hover:bg-custom/10"
+                      onclick="document.getElementById('door-access-modal').style.display ='flex';"
+                    >
+                      <i class="fas fa-plus mr-2"></i>
+                      Add User
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end space-x-2 pt-6 border-t border-gray-200">
+                <a href="./">
+                  <button type="button" class="rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50">
+                      Cancel
+                  </button>
+                </a>
+                <button type="submit" class="rounded-md bg-custom px-4 py-2 text-sm font-medium text-white hover:bg-custom/90">
+                    Save Door
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+  
+    <!-- Modal -->
+    <div id="door-access-modal" class="fixed inset-0 hidden bg-black bg-opacity-50 z-9 flex items-center justify-center">
+      <div class="relative top-5 bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4">
+        <div class="px-6 py-2 border-b border-gray-200 flex justify-between items-center">
+          <h3 class="text-lg font-medium">Select User</h3>
+          <button id="closeModal" class="relative right-[-10px] flex items-center w-10 h-10 justify-center rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-50">
+            <i class="fas fa-times text-lg"></i>
+          </button>
+        </div>
+        <div class="max-h-[60vh] overflow-y-auto">
+          <div class="flex flex-col p-4">
+            <div class="sticky top-0 bg-white p-2">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-search text-gray-400 pl-2"></i>
+              </div>
+              <input type="text" class="block w-full pl-10 py-2 border border-gray-300 rounded-md focus:ring-custom focus:border-custom" placeholder="Search..."/>
+            </div>
+            <div class="space-y-2 p-2">
+              <div class="flex justify-between items-center door-item px-4 py-2 border rounded hover:bg-gray-50 cursor-pointer" data-user="Adam Neumann" data-role="Admin" data-email="adam.neumann@example.com" data-avatar="assets/img-account-circle-fill.png">
+                <div class="flex gap-4">
+                  <img src="assets/img-account-circle-fill.png" alt="" class="w-12 h-12 rounded-full border border-gray-100">
+                  <div>
+                    <h6>Adam Neumann</h6>
+                    <span class="text-sm text-gray-400">adamneumann@example.com</span>
+                  </div>
+                </div>
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Admin</span>
+              </div>
+              <div class="flex justify-between items-center door-item px-4 py-2 border rounded hover:bg-gray-50 cursor-pointer" data-user="Sarah Wilson" data-role="Admin" data-email="sarah.wilson@example.com" data-avatar="assets/img-account-circle-fill.png">
+                <div class="flex gap-4">
+                  <img src="assets/img-account-circle-fill.png" alt="" class="w-12 h-12 rounded-full border border-gray-100">
+                  <div>
+                    <h6>Sarah Wilson</h6>
+                    <span class="text-sm text-gray-400">sarahwilson@example.com</span>
+                  </div>
+                </div>
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Admin</span>
+              </div>
+              <div class="flex justify-between items-center door-item px-4 py-2 border rounded hover:bg-gray-50 cursor-pointer" data-user="Michael Chen" data-role="Internal" data-email="michael.chen@example.com" data-avatar="assets/img-account-circle-fill.png">
+                <div class="flex gap-4">
+                  <img src="assets/img-account-circle-fill.png" alt="" class="w-12 h-12 rounded-full border border-gray-100">
+                  <div>
+                    <h6>Michael Chen</h6>
+                    <span class="text-sm text-gray-400">michael.chen@example.com</span>
+                  </div>
+                </div>
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Internal</span>
+              </div>
+              <div class="flex justify-between items-center door-item px-4 py-2 border rounded hover:bg-gray-50 cursor-pointer" data-user="Emily Johnson" data-role="Internal" data-email="emily.johnson@example.com" data-avatar="assets/img-account-circle-fill.png">
+                <div class="flex gap-4">
+                  <img src="assets/img-account-circle-fill.png" alt="" class="w-12 h-12 rounded-full border border-gray-100">
+                  <div>
+                    <h6>Emily Johnson</h6>
+                    <span class="text-sm text-gray-400">emily.johnson@example.com</span>
+                  </div>
+                </div>
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Internal</span>
+              </div>
+            </div>
+            <!-- <div class="door-item flex gap-4 px-4 py-2 hover:bg-gray-50 cursor-pointer" data-user="Storage Area">
+              <input type="checkbox" class="mt-2 rounded">
+              <div class="flex flex-col">
+                <h6>Storage Area</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+            </div>
+            <div class="door-item flex gap-4 px-4 py-2 hover:bg-gray-50 cursor-pointer" data-user="Storage Area">
+              <input type="checkbox" class="mt-2 rounded">
+              <div class="flex flex-col">
+                <h6>Storage Area</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+            </div>
+            <div class="door-item flex gap-4 px-4 py-2 hover:bg-gray-50 cursor-pointer" data-user="Storage Area">
+              <input type="checkbox" class="mt-2 rounded">
+              <div class="flex flex-col">
+                <h6>Storage Area</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+            </div>
+            <div class="door-item flex gap-4 px-4 py-2 hover:bg-gray-50 cursor-pointer" data-user="Storage Area">
+              <input type="checkbox" class="mt-2 rounded">
+              <div class="flex flex-col">
+                <h6>Storage Area</h6>
+                <span class="text-sm text-gray-400">1st Floor</span>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-4">
+          <button id="cancelModal" class="rounded bg-white px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50">
+            Cancel
+          </button>
+          <button id="saveModal" class="rounded bg-custom px-4 py-2 text-sm font-medium text-white hover:bg-custom/90">Add Selected</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function closeModal() {
+      document.getElementById('door-access-modal').style.display = 'none';
+    }
+
+    function checkEmpty() {
+        const doorAccessList = document.getElementById('door-access-list');
+        const emptyMessage = document.getElementById('empty');
+        
+        // Cek apakah ada item dalam list
+        if (doorAccessList.querySelectorAll('.bg-white').length === 0) {
+            emptyMessage.style.display = 'block'; // Tampilkan pesan kosong
+        } else {
+            emptyMessage.style.display = 'none'; // Sembunyikan pesan kosong
+        }
+    }
+
+    // Event listener untuk tombol cancel modal
+    document.getElementById('cancelModal').addEventListener('click', closeModal);
+
+    // Event listener untuk tombol close di sudut kanan atas modal
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+
+    document.getElementById('door-access-modal').addEventListener('click', function(event) {
+      // Pastikan klik terjadi pada overlay, bukan pada konten modal
+      if (event.target === this) {
+        closeModal();
+      }
+    });
+
+    // Fungsi untuk menambah/menghapus kelas 'active' pada item yang dipilih
+    document.querySelectorAll('.door-item').forEach(item => {
+      item.addEventListener('click', function() {
+        this.classList.toggle('bg-blue-50'); // Memberikan background color berbeda untuk item yang dipilih
+        this.classList.toggle('hover:bg-blue-50'); // Memberikan background color berbeda untuk item yang dipilih
+        this.classList.toggle('border-custom'); // Beri border berbeda
+      });
+    });
+
+    // Fungsi untuk menambah item ke daftar User Access di form
+    document.getElementById('saveModal').addEventListener('click', function() {
+      const selectedItems = document.querySelectorAll('.door-item.border-custom');
+      const doorAccessList = document.getElementById('door-access-list');
+
+      // Menambahkan item yang dipilih ke dalam daftar User Access
+      selectedItems.forEach(item => {
+        const userName = item.getAttribute('data-user');
+        const userAvatar = item.getAttribute('data-avatar');
+        const userEmail = item.getAttribute('data-email');
+        const userRole = item.getAttribute('data-role');
+        const listItem = document.createElement('div');
+        listItem.classList.add('bg-white', 'rounded', 'py-2', 'px-4', 'flex', 'justify-between', 'items-center');
+        listItem.innerHTML = `
+          <div class="flex gap-4">
+            <img src="${userAvatar}" alt="" class="w-12 h-12 rounded-full border border-gray-100">
+            <div>
+              <h6 class="text-sm font-medium text-gray-900">${userName}</h6>
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${userRole === 'Admin' ? 'bg-blue-100 text-blue-800' : userRole === 'Internal' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'}"">
+                ${userRole}
+              </span>
+            </div>
+          </div>
+          <i class="fas fa-times text-red-500 flex items-center justify-center rounded-full w-8 h-8 hover:bg-red-500/10 cursor-pointer" onclick="removeItem(this)"></i>
+        `;
+        doorAccessList.appendChild(listItem);
+      });
+
+      // Menutup modal setelah menambahkan item
+      closeModal();
+      checkEmpty();
+    });
+
+    // Fungsi untuk menghapus item dari daftar Door Access
+    function removeItem(button) {
+      button.closest('div').remove(); // Menghapus elemen parent dari button
+      checkEmpty();
+    }
+  </script>
+
+  <script>
+    const floorSelect = document.getElementById('floor-select');
+    const floorLabel = document.getElementById('floor-label');
+    const mapContainer = document.getElementById('map');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const xCoordInput = document.getElementById('x-coordinate');
+    const yCoordInput = document.getElementById('y-coordinate');
+
+    let img = new Image();
+    let marker = null;
+
+    // Fungsi untuk mengganti gambar pada canvas
+    function loadImage(src, labelText) {
+        img.src = src;
+        img.onload = function() {
+            // Set ukuran canvas mengikuti gambar
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            // Gambar ulang canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // Pastikan event listener tetap ada
+            setTimeout(() => {
+                addCanvasClickListener();
+            }, 100);
+        };
+        // Update teks label sebelum canvas
+        floorLabel.textContent = labelText;
+    }
+
+    function removeMarker() {
+      if (marker) {
+          marker.remove();
+          marker = null;
+          xCoordInput.textContent = "-";
+          yCoordInput.textContent = "-";
+      }
+    }
+
+    // Event listener untuk dropdown
+    floorSelect.addEventListener('change', function() {
+      removeMarker();
+
+      if (this.value === "basement") {
+          mapContainer.classList.remove('hidden');
+          loadImage("assets/img-default-map.png", "Basement");
+      } else if (this.value === "floor1") {
+          mapContainer.classList.remove('hidden');
+          loadImage("assets/img-map.png", "Floor 1");
+      } else {
+          mapContainer.classList.add('hidden'); // Sembunyikan jika tidak ada yang dipilih
+          floorLabel.textContent = ""; // Kosongkan label
+      }
+    });
+
+    // Fungsi untuk menangani klik pada canvas
+    function addCanvasClickListener() {
+        canvas.onclick = function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            // Menghapus marker lama jika ada
+            if (marker) {
+                marker.remove();
+            }
+
+            // Menambahkan marker baru ke dalam container
+            marker = document.createElement('i');
+            marker.classList.add('marker', 'fas', 'fa-location-dot', 'absolute', 'text-[32px]', 'text-red-600', 'pointer-events-none');
+            marker.style.left = `${x - 12}px`; // Menyesuaikan posisi marker
+            marker.style.top = `${y - 32}px`; // Menyesuaikan posisi marker
+            document.getElementById('canvas-container').appendChild(marker);
+
+            // Menampilkan koordinat pada form
+            xCoordInput.textContent = x;
+            yCoordInput.textContent = y;
+        };
+    }
+  </script>
+
+</body>
+</html>
+
