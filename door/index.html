@@ -35,8 +35,7 @@
         </div>
       </a>
       <nav class="my-4 px-2 space-y-1">
-        <a href="/"
-          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+        <a href="/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
           <i class="fas fa-house text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Dashboard
         </a>
@@ -44,12 +43,12 @@
           <i class="fas fa-key text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Activity Log
         </a>
-        <a href="/guest/"
-          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
-          <i class="fas fa-calendar-alt text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+        <a href="/guest/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-users text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Guest Reservation
         </a>
-        <a href="/door/" class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
+        <a href="/door/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
           <div class="flex items-center">
             <i class="fas fa-door-open text-base w-5 h-5 flex justify-center items-center mr-4"></i>
             Door Access
@@ -142,7 +141,192 @@
           </div>
       </header>
 
-      <div class="p-6"></div>
+      <div class="p-6">
+        <div class="flex items-center justify-between mb-6 gap-4">
+          <div class="flex items-center">
+            <div class="flex items-center space-x-4 mr-4">
+              <div class="flex gap-2">
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-gray-400"></i>
+                  </div>
+                  <input type="text"
+                    class="block w-full pl-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-custom focus:border-custom"
+                    placeholder="Search door" />
+                </div>
+                <select id="floor" class="rounded border-gray-300 text-sm cursor-pointer">
+                  <option value="">All Floor</option>
+                  <option value="Basement">Basement</option>
+                  <option value="floor-1">Floor 1</option>
+                  <option value="floor-2">Floor 2</option>
+                </select>
+              </div>
+              <!-- <select
+                class="block pl-3 pr-10 py-2 text-sm border-gray-300 rounded-md focus:ring-custom focus:border-custom">
+                <option>All Access Method</option>
+                <option>Face Recognition</option>
+                <option>Fingerprint</option>
+                <option>Card Access</option>
+                <option>PIN Code</option>
+              </select>
+              <select
+                class="block pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-custom focus:border-custom">
+                <option>All Status</option>
+                <option>Granted</option>
+                <option>Denied</option>
+              </select> -->
+            </div>
+          </div>
+          <div class="flex space-x-2">
+            <select id="sort-by" class="rounded border-gray-300 text-sm cursor-pointer">
+              <option value="activity">Sort by Activity</option>
+              <option value="occupancy">Sort by Occupancy</option>
+              <option value="door">Sort by Door</option>
+            </select>
+            <div class="flex bg-white rounded overflow-hidden">
+              <button class="flex justify-center items-center px-3 text-sm hover:text-custom text-custom bg-gray-100 ">
+                <i class="fas fa-border-all"></i>
+              </button>
+              <button class="flex justify-center items-center px-3 text-sm hover:text-custom text-gray-500">
+                <i class="fas fa-list"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white border rounded-lg hover:shadow-md cursor-pointer"
+            onclick="window.location.href='door-detail.html'">
+            <div class="p-4 border-b">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-medium text-gray-900">Main Entrance</h3>
+                  <p class="text-sm text-gray-500">Basement</p>
+                </div>
+                <div class="relative h-12 w-12">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="text-sm font-medium text-yellow-500">95%</p>
+                  </div>
+                  <svg class="transform -rotate-90" width="48" height="48">
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" />
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="4"
+                      class="text-yellow-500" stroke-dasharray="126" stroke-dashoffset="8" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">Total Entries</p>
+                  <p class="text-lg text-gray-900">245</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Total Exits</p>
+                  <p class="text-lg text-gray-900">198</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">People Inside</p>
+                  <p class="text-lg text-gray-900">47</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">
+                  <i class="fa-regular fa-clock text-gray-400 mr-1"></i>
+                  Last activity: 2 mins ago
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border rounded-lg hover:shadow-md cursor-pointer"
+            onclick="window.location.href='door-detail.html'">
+            <div class="p-4 border-b">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-medium text-gray-900">Office Area</h3>
+                  <p class="text-sm text-gray-500">Floor 1</p>
+                </div>
+                <div class="relative h-12 w-12">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="text-sm font-medium text-green-500">40%</p>
+                  </div>
+                  <svg class="transform -rotate-90" width="48" height="48">
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" />
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="4"
+                      class="text-green-500" stroke-dasharray="126" stroke-dashoffset="70" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">Total Entries</p>
+                  <p class="text-lg text-gray-900">178</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Total Exits</p>
+                  <p class="text-lg text-gray-900">156</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">People Inside</p>
+                  <p class="text-lg text-gray-900">22</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">
+                  <i class="fa-regular fa-clock text-gray-400 mr-1"></i>
+                  Last activity: 5 mins ago
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border rounded-lg hover:shadow-md cursor-pointer"
+            onclick="window.location.href='door-detail.html'">
+            <div class="p-4 border-b">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-medium text-gray-900">Conference Room</h3>
+                  <p class="text-sm text-gray-500">Floor 2</p>
+                </div>
+                <div class="relative h-12 w-12">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="text-sm font-medium text-green-500">0%</p>
+                  </div>
+                  <svg class="transform -rotate-90" width="48" height="48">
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" />
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="4"
+                      class="text-green-500" stroke-dasharray="126" stroke-dashoffset="126" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">Total Entries</p>
+                  <p class="text-lg text-gray-900">45</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Total Exits</p>
+                  <p class="text-lg text-gray-900">45</p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">People Inside</p>
+                  <p class="text-lg text-gray-900">0</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">
+                  <i class="fa-regular fa-clock text-gray-400 mr-1"></i>
+                  Last activity: 1 hour ago
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 

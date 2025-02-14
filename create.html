@@ -2,380 +2,308 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Access Control Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Door Access Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet">
   <script
     src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
   <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8"
-    data-border-radius="medium"></script>
+    data-border-radius='medium'></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
-  <nav class="bg-white border-b border-gray-200 fixed w-full z-30 top-0">
-    <div class="max-w-8xl mx-auto px-4">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center">
-          <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" class="h-8 w-auto" />
-          <span class="ml-4 text-lg font-semibold text-gray-900">Access Control</span>
-        </div>
-        <div class="flex items-center space-x-4">
-          <button class="!rounded-button bg-red-600 hover:bg-red-700 text-white px-4 py-2 flex items-center">
-            <i class="fas fa-lock mr-2"></i>
-            Emergency Lock
-          </button>
-          <div class="relative">
-            <button class="!rounded-button p-2 text-gray-500 hover:text-gray-700">
-              <i class="fas fa-bell text-xl"></i>
-              <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
-            </button>
+  <nav class="bg-white border-b border-gray-200">
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex">
+          <div class="flex-shrink-0 flex items-center"> <img class="h-8 w-auto"
+              src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo">
           </div>
-          <div class="flex items-center">
+        </div>
+        <div class="flex items-center">
+          <div class="relative mx-4">
+            <input type="text" placeholder="Search..."
+              class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-custom">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="fas fa-search text-gray-400"></i>
+            </div>
+          </div>
+          <button class="relative p-2 text-gray-600 hover:text-custom"> <i class="fas fa-bell"></i>
+            <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
+          </button>
+          <div class="ml-4 flex items-center">
             <img class="h-8 w-8 rounded-full"
-              src="https://creatie.ai/ai/api/search-image?query=A professional headshot of a business person with a neutral expression, wearing formal attire, against a light gray background&width=80&height=80&orientation=squarish&flag=4969520c-498a-4e7a-bbc3-128c10c7be21&flag=9b72b665-6450-402a-9422-5e6524b1a06d&flag=fc75a96d-351e-4a48-bb4a-70661ccfd1c0&flag=49e53800-0280-4ec1-9ee7-1e0d2867380c"
-              alt="User" />
-            <span class="ml-2 text-sm font-medium text-gray-700">Admin User</span>
+              src="https://creatie.ai/ai/api/search-image?query=A professional headshot of a person with a neutral expression, wearing business attire, shot against a light gray background&width=100&height=100&orientation=squarish&flag=4b4db042-12a4-4318-9bea-d613f8b9ee10"
+              alt="User">
           </div>
         </div>
       </div>
     </div>
   </nav>
-  <main class="pt-16">
-    <div class="max-w-8xl mx-auto px-4 py-6">
-      <div class="grid grid-cols-5 gap-6 mb-6">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-bold text-gray-900">Device Monitoring</h2>
-          <div class="flex items-center space-x-4">
-            <div class="relative"><input type="date"
-                class="!rounded-button px-3 py-1 text-sm border border-gray-300" /><span class="mx-2">to</span><input
-                type="date" class="!rounded-button px-3 py-1 text-sm border border-gray-300" /></div><button
-              class="!rounded-button px-4 py-1 text-sm bg-custom text-white">Apply Filter</button>
-          </div>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-600">Total Doors</p>
-              <p class="text-2xl font-semibold text-gray-900">48</p>
-            </div>
-            <div class="bg-custom bg-opacity-10 p-3 rounded-full">
-              <i class="fas fa-door-open text-custom text-xl"></i>
-            </div>
-          </div>
-          <div class="mt-4">
-            <p class="text-sm text-green-600">
-              <i class="fas fa-check-circle mr-1"></i>
-              45 Active
-            </p>
-          </div>
-        </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-600">Today&#39;s Activities</p>
-              <p class="text-2xl font-semibold text-gray-900">1,234</p>
-            </div>
-            <div class="bg-custom bg-opacity-10 p-3 rounded-full">
-              <i class="fas fa-chart-line text-custom text-xl"></i>
-            </div>
+  <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-custom bg-opacity-10">
+            <i class="fas fa-door-open text-custom text-xl"></i>
           </div>
-          <div class="mt-4">
-            <p class="text-sm text-custom">
-              <i class="fas fa-arrow-up mr-1"></i>
-              12% from yesterday
-            </p>
-          </div>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-600">Active Devices</p>
-              <p class="text-2xl font-semibold text-gray-900">96</p>
-            </div>
-            <div class="bg-custom bg-opacity-10 p-3 rounded-full">
-              <i class="fas fa-microchip text-custom text-xl"></i>
-            </div>
-          </div>
-          <div class="mt-4">
-            <p class="text-sm text-green-600">
-              <i class="fas fa-check-circle mr-1"></i>
-              98% Operational
-            </p>
-          </div>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-600">Unique Users Today</p>
-              <p class="text-2xl font-semibold text-gray-900">342</p>
-            </div>
-            <div class="bg-custom bg-opacity-10 p-3 rounded-full">
-              <i class="fas fa-users text-custom text-xl"></i>
-            </div>
-          </div>
-          <div class="mt-4">
-            <p class="text-sm text-custom">
-              <i class="fas fa-arrow-up mr-1"></i>
-              5% from average
-            </p>
-          </div>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-gray-600">Inactive Devices</p>
-              <p class="text-2xl font-semibold text-gray-900">3</p>
-            </div>
-            <div class="bg-red-100 p-3 rounded-full"><i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
-            </div>
-          </div>
-          <div class="mt-4">
-            <p class="text-sm text-red-600"><i class="fas fa-exclamation-circle mr-1"></i>Requires Attention</p>
+          <div class="ml-4">
+            <h3 class="text-sm font-medium text-gray-500">Active Doors</h3>
+            <p class="text-2xl font-semibold text-gray-900">24</p>
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-6 mb-6">
-        <div class="bg-white rounded-lg shadow p-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">Devices Requiring Attention</h3>
-          <div class="space-y-4">
-            <div class="flex items-center justify-between p-4 bg-red-50 rounded-lg">
-              <div class="flex items-center"><i class="fas fa-exclamation-triangle text-red-500 mr-3"></i>
-                <div>
-                  <p class="text-sm font-medium text-gray-900">Card Reader #123 - Main Entrance</p>
-                  <p class="text-sm text-red-600">Error: Connection timeout</p>
-                </div>
-              </div><button class="!rounded-button px-3 py-1 text-sm bg-red-600 text-white">Investigate</button>
-            </div>
-            <div class="flex items-center justify-between p-4 bg-yellow-50 rounded-lg">
-              <div class="flex items-center"><i class="fas fa-exclamation-circle text-yellow-500 mr-3"></i>
-                <div>
-                  <p class="text-sm font-medium text-gray-900">Fingerprint Scanner #456 - Server Room</p>
-                  <p class="text-sm text-yellow-600">Warning: Needs maintenance</p>
-                </div>
-              </div><button class="!rounded-button px-3 py-1 text-sm bg-yellow-600 text-white">Schedule Service</button>
-            </div>
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-green-100"> <i class="fas fa-users text-green-600 text-xl"></i>
           </div>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">Device Status Details</h3>
-          <div class="space-y-4">
-            <div class="p-4 bg-gray-50 rounded-lg">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <div class="h-2 w-2 rounded-full bg-green-500 mr-2"></div><span class="text-sm font-medium">Online
-                    Devices</span>
-                </div><span class="text-sm font-semibold">93</span>
-              </div>
-            </div>
-            <div class="p-4 bg-gray-50 rounded-lg">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <div class="h-2 w-2 rounded-full bg-red-500 mr-2"></div><span class="text-sm font-medium">Offline
-                    Devices</span>
-                </div><span class="text-sm font-semibold">3</span>
-              </div>
-            </div>
-            <div class="p-4 bg-gray-50 rounded-lg">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <div class="h-2 w-2 rounded-full bg-yellow-500 mr-2"></div><span
-                    class="text-sm font-medium">Maintenance Required</span>
-                </div><span class="text-sm font-semibold">4</span>
-              </div>
-            </div>
+          <div class="ml-4">
+            <h3 class="text-sm font-medium text-gray-500">People in Building</h3>
+            <p class="text-2xl font-semibold text-gray-900">342</p>
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-6 mb-6">
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-semibold text-gray-900">Activity Trends</h3>
-            <div class="flex space-x-2">
-              <button class="!rounded-button px-3 py-1 text-sm bg-custom text-white">Daily</button>
-              <button class="!rounded-button px-3 py-1 text-sm bg-gray-100 text-gray-600">Monthly</button>
-            </div>
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-yellow-100">
+            <i class="fas fa-exchange-alt text-yellow-600 text-xl"></i>
           </div>
-          <div id="activityChart" class="h-64"></div>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-semibold text-gray-900">Access Methods</h3>
-          </div>
-          <div class="grid grid-cols-2 gap-6">
-            <div id="accessMethodsChart" class="h-64"></div>
-            <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-600">Card Access</span>
-                <span class="text-sm font-semibold text-gray-900">45%</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-600">PIN Code</span>
-                <span class="text-sm font-semibold text-gray-900">30%</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-600">Fingerprint</span>
-                <span class="text-sm font-semibold text-gray-900">15%</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-600">Facial Recognition</span>
-                <span class="text-sm font-semibold text-gray-900">10%</span>
-              </div>
-            </div>
+          <div class="ml-4">
+            <h3 class="text-sm font-medium text-gray-500">Total Entry/Exit</h3>
+            <p class="text-2xl font-semibold text-gray-900">1,284</p>
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-3 gap-6 mb-6">
-        <div class="bg-white rounded-lg shadow p-6 col-span-2">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-semibold text-gray-900">Door Activity Distribution</h3>
-            <div class="flex items-center space-x-2"><button
-                class="!rounded-button px-3 py-1 text-sm bg-gray-100 text-gray-600"><i
-                  class="fas fa-filter mr-1"></i>Filter</button></div>
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-purple-100">
+            <i class="fas fa-clock text-purple-600 text-xl"></i>
           </div>
-          <div class="grid grid-cols-2 gap-6">
-            <div id="doorActivityChart" class="h-64"></div>
-            <div class="space-y-4">
-              <div class="flex items-center justify-between"><span class="text-sm font-medium text-gray-600">Main
-                  Entrance</span><span class="text-sm font-semibold text-gray-900">35%</span></div>
-              <div class="flex items-center justify-between"><span class="text-sm font-medium text-gray-600">Server
-                  Room</span><span class="text-sm font-semibold text-gray-900">25%</span></div>
-              <div class="flex items-center justify-between"><span class="text-sm font-medium text-gray-600">Office
-                  Area</span><span class="text-sm font-semibold text-gray-900">20%</span></div>
-              <div class="flex items-center justify-between"><span class="text-sm font-medium text-gray-600">Other
-                  Doors</span><span class="text-sm font-semibold text-gray-900">20%</span></div>
-            </div>
+          <div class="ml-4">
+            <h3 class="text-sm font-medium text-gray-500">Peak Hour</h3>
+            <p class="text-2xl font-semibold text-gray-900">9:00 AM</p>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
+    <div class="bg-white rounded-lg shadow mb-8">
+      <div class="p-4 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-medium text-gray-900">Door Access Status</h2>
+          <div class="flex space-x-4">
+            <select class="border-gray-300 rounded-lg focus:border-custom focus:ring-custom">
+              <option>All Floors</option>
+              <option>Floor 1</option>
+              <option>Floor 2</option>
+              <option>Floor 3</option>
+            </select>
+            <select class="border-gray-300 rounded-lg focus:border-custom focus:ring-custom">
+              <option>Sort by Activity</option>
+              <option>Sort by Occupancy</option>
+              <option>Sort by Name</option>
+            </select>
+            <button class="!rounded-button bg-custom text-white px-4 py-2 hover:bg-custom/90"> <i
+                class="fas fa-th-large mr-2"></i>Grid View
+            </button>
           </div>
-          <div class="space-y-4">
-            <div class="flex items-start space-x-3">
-              <div class="flex-shrink-0">
-                <div class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
-                  <i class="fas fa-check text-green-600"></i>
+        </div>
+      </div>
+
+      <div class="p-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white border rounded-lg shadow-sm">
+            <div class="p-4 border-b">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-lg font-medium text-gray-900">Main Entrance</h3>
+                  <p class="text-sm text-gray-500">Ground Floor</p>
                 </div>
-              </div>
-              <div>
-                <p class="text-sm font-medium text-gray-900">Access Granted</p>
-                <p class="text-sm text-gray-500">John Doe - Main Entrance</p>
-                <p class="text-xs text-gray-400">2 minutes ago</p>
+                <span class="px-3 py-1 text-sm font-medium bg-green-100 text-green-800 rounded-full">Active</span>
               </div>
             </div>
-            <div class="flex items-start space-x-3">
-              <div class="flex-shrink-0">
-                <div class="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center">
-                  <i class="fas fa-times text-red-600"></i>
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">Entry Count</p>
+                  <p class="text-lg font-medium text-gray-900">245 <span class="text-green-500 text-sm">↑</span></p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Exit Count</p>
+                  <p class="text-lg font-medium text-gray-900">198 <span class="text-red-500 text-sm">↓</span></p>
                 </div>
               </div>
-              <div>
-                <p class="text-sm font-medium text-gray-900">Access Denied</p>
-                <p class="text-sm text-gray-500">Unknown Card - Server Room</p>
-                <p class="text-xs text-gray-400">5 minutes ago</p>
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">People Inside</p>
+                  <p class="text-lg font-medium text-gray-900">47</p>
+                </div>
+                <div class="relative h-12 w-12">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="text-sm font-medium text-custom">65%</p>
+                  </div> <svg class="transform -rotate-90" width="48" height="48">
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" />
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="4"
+                      class="text-custom" stroke-dasharray="126" stroke-dashoffset="44" />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">
+                  <i class="fas fa-clock text-gray-400 mr-1"></i>
+                  Last activity: 2 mins ago
+                </p>
+                <button class="!rounded-button bg-custom text-white px-4 py-2 text-sm hover:bg-custom/90"> <i
+                    class="fas fa-lock-open mr-1"></i>Unlock
+                </button>
               </div>
             </div>
-            <div class="flex items-start space-x-3">
-              <div class="flex-shrink-0">
-                <div class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
-                  <i class="fas fa-check text-green-600"></i>
+          </div>
+
+          <div class="bg-white border rounded-lg shadow-sm">
+            <div class="p-4 border-b">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-lg font-medium text-gray-900">Office Area</h3>
+                  <p class="text-sm text-gray-500">Floor 1</p>
+                </div>
+                <span class="px-3 py-1 text-sm font-medium bg-yellow-100 text-yellow-800 rounded-full">High
+                  Traffic</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">Entry Count</p>
+                  <p class="text-lg font-medium text-gray-900">178 <span class="text-green-500 text-sm">↑</span></p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Exit Count</p>
+                  <p class="text-lg font-medium text-gray-900">156 <span class="text-red-500 text-sm">↓</span></p>
                 </div>
               </div>
-              <div>
-                <p class="text-sm font-medium text-gray-900">Access Granted</p>
-                <p class="text-sm text-gray-500">Jane Smith - Office 101</p>
-                <p class="text-xs text-gray-400">10 minutes ago</p>
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">People Inside</p>
+                  <p class="text-lg font-medium text-gray-900">22</p>
+                </div>
+                <div class="relative h-12 w-12">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="text-sm font-medium text-custom">85%</p>
+                  </div> <svg class="transform -rotate-90" width="48" height="48">
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" />
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="4"
+                      class="text-custom" stroke-dasharray="126" stroke-dashoffset="19" />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">
+                  <i class="fas fa-clock text-gray-400 mr-1"></i>
+                  Last activity: 5 mins ago
+                </p>
+                <button class="!rounded-button bg-custom text-white px-4 py-2 text-sm hover:bg-custom/90"> <i
+                    class="fas fa-lock-open mr-1"></i>Unlock
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border rounded-lg shadow-sm">
+            <div class="p-4 border-b">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-lg font-medium text-gray-900">Conference Room</h3>
+                  <p class="text-sm text-gray-500">Floor 2</p>
+                </div>
+                <span class="px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full">Inactive</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">Entry Count</p>
+                  <p class="text-lg font-medium text-gray-900">45 <span class="text-gray-500 text-sm">-</span></p>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-500">Exit Count</p>
+                  <p class="text-lg font-medium text-gray-900">45 <span class="text-gray-500 text-sm">-</span></p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <p class="text-sm text-gray-500">People Inside</p>
+                  <p class="text-lg font-medium text-gray-900">0</p>
+                </div>
+                <div class="relative h-12 w-12">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <p class="text-sm font-medium text-gray-400">0%</p>
+                  </div> <svg class="transform -rotate-90" width="48" height="48">
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" />
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" stroke-dasharray="126"
+                      stroke-dashoffset="126" />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">
+                  <i class="fas fa-clock text-gray-400 mr-1"></i>
+                  Last activity: 1 hour ago
+                </p>
+                <button class="!rounded-button bg-gray-100 text-gray-700 px-4 py-2 text-sm hover:bg-gray-200"> <i
+                    class="fas fa-lock mr-1"></i>Locked
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="bg-white rounded-lg shadow">
+      <div class="p-4 border-b border-gray-200">
+        <h2 class="text-lg font-medium text-gray-900">Recent Activities</h2>
+      </div>
+      <div class="p-4">
+        <div class="space-y-4">
+          <div class="flex items-center">
+            <div class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
+              <i class="fas fa-door-open text-green-600"></i>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-900">Main Entrance - Entry</p>
+              <p class="text-sm text-gray-500">John Smith entered through Main Entrance</p>
+            </div>
+            <p class="ml-auto text-sm text-gray-500">2 mins ago</p>
+          </div>
+          <div class="flex items-center">
+            <div class="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center"> <i
+                class="fas fa-door-closed text-red-600"></i>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-900">Office Area - Exit</p>
+              <p class="text-sm text-gray-500">Sarah Johnson left through Office Area</p>
+            </div>
+            <p class="ml-auto text-sm text-gray-500">5 mins ago</p>
+          </div>
+          <div class="flex items-center">
+            <div class="h-8 w-8 rounded-full bg-yellow-100 flex items-center justify-center"> <i
+                class="fas fa-exclamation-triangle text-yellow-600"></i>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-900">Conference Room - Alert</p>
+              <p class="text-sm text-gray-500">Door held open for too long</p>
+            </div>
+            <p class="ml-auto text-sm text-gray-500">15 mins ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
-  <script>const activityChart = echarts.init(document.getElementById('activityChart'));
-    const accessMethodsChart = echarts.init(document.getElementById('accessMethodsChart'));
-    const doorActivityChart = echarts.init(document.getElementById('doorActivityChart'));
-    const activityOption = {
-      animation: false,
-      tooltip: {
-        trigger: 'axis'
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        data: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        data: [30, 25, 120, 180, 150, 80],
-        type: 'line',
-        smooth: true,
-        color: '#659BC8'
-      }]
-    };
-    const accessMethodsOption = {
-      animation: false,
-      tooltip: {
-        trigger: 'item'
-      },
-      series: [{
-        type: 'pie',
-        radius: ['40%', '70%'],
-        data: [
-          { value: 45, name: 'Card' },
-          { value: 30, name: 'PIN' },
-          { value: 15, name: 'Fingerprint' },
-          { value: 10, name: 'Facial' }
-        ],
-        color: ['#659BC8', '#90CAF9', '#42A5F5', '#1E88E5']
-      }]
-    };
-    const doorActivityOption = {
-      animation: false,
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'value',
-        boundaryGap: [0, 0.01]
-      },
-      yAxis: {
-        type: 'category',
-        data: ['Other Doors', 'Office Area', 'Server Room', 'Main Entrance']
-      },
-      series: [{
-        type: 'bar',
-        data: [20, 20, 25, 35],
-        color: '#659BC8'
-      }]
-    };
-    activityChart.setOption(activityOption);
-    accessMethodsChart.setOption(accessMethodsOption);
-    doorActivityChart.setOption(doorActivityOption);
-    window.addEventListener('resize', function () {
-      activityChart.resize();
-      accessMethodsChart.resize();
-      doorActivityChart.resize();
-    });</script>
+</body>
+
+</html>
