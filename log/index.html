@@ -33,7 +33,7 @@
         </a>
         <a href="../log/"
           class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
-          <i class="fas fa-key text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          <i class="fas fa-history text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Activity Log
         </a>
         <a href="../guest/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
@@ -170,12 +170,20 @@
               </select> -->
             </div>
           </div>
-          <a href="">
-            <button class="rounded flex items-center px-4 py-2 text-sm bg-custom text-white hover:bg-custom/90">
-              <i class="fas fa-file-export mr-2"></i>
-              <span>Export Data</span>
+          <button id="export-button" class="rounded flex items-center px-4 py-2 text-sm bg-custom text-white hover:bg-custom/90">
+            <i class="fas fa-upload mr-2"></i>
+            <span>Export Data</span>
+          </button>
+          <!-- <div id="export-list" class="absolute top-32 right-4 z-40 flex flex-col p-4 bg-white rounded-lg shadow-lg space-y-2">
+            <button id="export-button" class="rounded flex items-center px-4 py-2 text-sm border border-green-600 text-green-600 hover:bg-green-600/10">
+              <i class="fas fa-file-csv mr-2"></i>
+              <span>Export Activity Log</span>
             </button>
-          </a>
+            <button id="export-button" class="rounded flex items-center px-4 py-2 text-sm border border-red-600 text-red-600 hover:bg-red-600/10">
+              <i class="fas fa-file-pdf mr-2"></i>
+              <span>Export Summary Report</span>
+            </button>
+          </div> -->
         </div>
         <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
           <nav class="flex border-b border-gray-200" aria-label="Tabs">
@@ -335,6 +343,82 @@
           </div>
         </div>
       </div>
+
+      <!-- Modal Export -->
+      <div id="modal-export" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+          <div class="px-6 py-2 border-b border-gray-200 flex justify-between items-center">
+            <h3 class="text-lg font-medium">Export Activity Log</h3>
+            <button id="close-modal-export"
+              class="relative right-[-10px] flex items-center w-10 h-10 justify-center rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-50">
+              <i class="fas fa-times text-lg"></i>
+            </button>
+          </div>
+          <div class="p-6 max-h-[60vh] overflow-y-auto">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="start-date" class="block text-sm font-medium text-gray-700">Start Date</label>
+                <input type="date" id="start-date" name="start-date"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md sm:text-sm">
+              </div>
+              <div>
+                <label for="end-date" class="block text-sm font-medium text-gray-700">End Date</label>
+                <input type="date" id="end-date" name="end-date"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md sm:text-sm">
+              </div>
+              <div>
+                <label for="start-time" class="block text-sm font-medium text-gray-700">Start Time</label>
+                <input type="time" id="start-time" name="start-time"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md sm:text-sm">
+              </div>
+              <div>
+                <label for="end-time" class="block text-sm font-medium text-gray-700">End Time</label>
+                <input type="time" id="end-time" name="end-time"
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md sm:text-sm">
+              </div>
+              <!-- <div class="col-span-2">
+                <label for="date-range" class="block text-sm font-medium text-gray-700">Select Door</label>
+                <select id="date-range" class="mt-1 w-full rounded-md border-gray-300 text-sm cursor-pointer">
+                  <option value="today">Today</option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="this-week">This Week</option>
+                  <option value="this-month">This Month</option>
+                  <option value="custom">Custom Date</option>
+                </select>
+              </div> -->
+              <!-- <div>
+                <label class="block text-sm font-medium text-gray-700">Role</label>
+                <div class="flex items-center gap-3 mt-1">
+                  <input type="checkbox" id="internal" class="rounded border-gray-300">
+                  <label for="internal" class="text-smtext-gray-700 text-sm">Internal</label>
+                </div>
+                <div class="flex items-center gap-3 mt-1">
+                  <input type="checkbox" id="guest" class="rounded border-gray-300">
+                  <label for="guest" class="text-smtext-gray-700 text-sm">Guest</label>
+                </div>
+                <div class="flex items-center gap-3 mt-1">
+                  <input type="checkbox" id="admin" class="rounded border-gray-300">
+                  <label for="admin" class="text-smtext-gray-700 text-sm">Admin</label>
+                </div>
+                <div class="flex items-center gap-3 mt-1">
+                  <input type="checkbox" id="unknown" class="rounded border-gray-300">
+                  <label for="unknown" class="text-smtext-gray-700 text-sm">Unknown</label>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-4">
+            <button id="cancel-modal-export"
+              class="rounded bg-white px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50">
+              Cancel
+            </button>
+            <button id="save-modal-export"
+              class="rounded bg-custom px-4 py-2 text-sm font-medium text-white hover:bg-custom/90">
+              Export Log
+            </button>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 
@@ -408,6 +492,29 @@
 
       startTime.addEventListener("change", validateTimeRange);
       endTime.addEventListener("change", validateTimeRange);
+    });
+  </script>
+
+  <script>
+    // Modal Export
+    const modalExport = document.getElementById('modal-export');
+    const exportButton = document.getElementById('export-button');
+
+    exportButton.addEventListener('click', () => {
+      modalExport.classList.remove('hidden')
+    });
+
+    function closeModalExport() {
+      modalExport.classList.add("hidden");
+    }
+
+    document.getElementById('cancel-modal-export').addEventListener('click', closeModalExport);
+    document.getElementById('close-modal-export').addEventListener('click', closeModalExport);
+    modalExport.addEventListener('click', function (event) {
+      // Pastikan klik terjadi pada overlay, bukan pada konten modal
+      if (event.target === this) {
+        closeModalExport();
+      }
     });
   </script>
 </body>

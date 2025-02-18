@@ -33,7 +33,7 @@
           Dashboard
         </a>
         <a href="../log/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
-          <i class="fas fa-key text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          <i class="fas fa-history text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Activity Log
         </a>
         <a href="../guest/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
@@ -61,11 +61,11 @@
           <i class="fas fa-tablet-screen-button text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Devices
         </a> -->
-        <a href="#" id="management"
+        <a href="" id="management"
           class="flex items-center justify-between p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
           <div class="flex items-center">
-            <i class="fas fa-gear text-base w-5 h-5 flex justify-center items-center mr-4"></i>
-            Access Management
+            <i class="fas fa-user-shield text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Admin Panel
           </div>
           <i id="chevron" class="fas fa-chevron-down text-gray-400 text-xs transition-transform"></i>
         </a>
@@ -183,36 +183,29 @@
               </div>
               <div class="ml-4">
                 <h3 class="text-sm text-gray-500">Peak Hour</h3>
-                <p class="text-xl font-semibold text-gray-900">9:00 AM</p>
+                <p class="text-xl font-semibold text-gray-900">12:00</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="flex gap-6 mb-6">
-          <div class="w-2/3 bg-white rounded-lg border p-4">
-            <div class="flex justify-between mb-4">
-              <h2 class="text-lg font-semibold">
-                Floor Map:
-                <span>Basement</span>
-              </h2>
-              <div class="mt-1 flex items-center text-sm text-gray-500">
-                <span>Coordinates: X: 120, Y: 85</span>
+        <div class="grid grid-cols-6 gap-6 mb-6">
+          <div class="col-span-4 flex flex-col relative bg-white p-6 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-gray-900">Activity Trends</h3>
+              <div class="flex space-x-2">
+                <button class="!rounded-button px-3 py-1 text-sm bg-custom text-white">Daily</button>
+                <button class="!rounded-button px-3 py-1 text-sm bg-gray-100 text-gray-600">Weekly</button>
+                <button class="!rounded-button px-3 py-1 text-sm bg-gray-100 text-gray-600">Monthly</button>
               </div>
             </div>
-            <div id="image-container"
-              class="flex-1 h-[75vh] border-r border-gray-300 overflow-hidden relative cursor-move bg-black select-none">
-              <div id="image-wrapper" class="absolute top-0 left-0">
-                <img id="floor-map" src="../assets/img-default-map.png" alt="Floor Map"
-                  class="object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
-                  <i class="fas fa-location-dot absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[32px] text-red-600 cursor-pointer"
-                    title="Main Entrance"></i>
-                </div>
-              </div>
-            </div>
+            <div id="activityChart" class="h-64 w-full"></div>
           </div>
-          <div class="w-1/3 flex flex-col space-y-6 items-stretch">
+
+          <div class="row-span-2 col-span-2 flex flex-col space-y-6">
+            <div class="flex flex-col bg-white p-6 rounded-lg border border-gray-200">
+              <h3 class="text-lg font-medium mb-4">Access Methods</h3>
+              <div id="accessChart" class="h-64"></div>
+            </div>
             <div class="bg-white rounded-lg border p-6">
               <h3 class="text-lg font-semibold mb-4">Device Information</h3>
               <div class="space-y-2">
@@ -242,162 +235,162 @@
                 </div>
               </div>
             </div>
-            <div class="flex flex-col bg-white p-6 rounded-lg border border-gray-200 h-full">
-              <h3 class="text-lg font-medium mb-4">Access Methods</h3>
-              <div id="accessChart" class="relative flex justify-center items-center w-full h-full"></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex gap-6">
-          <div class="w-2/3 bg-white rounded-lg border h-fit overflow-hidden">
-            <div class="p-6 flex justify-between items-center border-b border-gray-200">
-              <h3 class="text-lg font-medium">Recent Activities</h3>
-              <a href="#" class="text-sm text-[#659BC8] font-medium hover:text-[#659BC8]/80">View All</a>
-            </div>
-            <div class="overflow-x-auto w-full">
-              <table class="w-full">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visitor
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Access
-                      Method</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 mins ago</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Sarah Johnson</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Admin</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Face Recognition</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 mins ago</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Michael Chen</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">IT Staff</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Key Card</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 mins ago</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Unknown</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Denied</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 mins ago</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Unknown</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Denied</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 mins ago</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Unknown</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Denied</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="w-1/3 bg-white rounded-lg border">
-            <div class="p-6 flex justify-between items-center border-b border-gray-200">
-              <h3 class="text-lg font-medium">Authorized Users <span>(32)</span></h3>
-              <a href="#" class="text-sm text-[#659BC8] font-medium hover:text-[#659BC8]/80">View All</a>
-            </div>
-            <div class="py-2">
-              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
-                <div class="flex items-center">
-                  <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
-                  <div class="ml-3">
-                    <div class="text-gray-900">Michael Brown</div>
-                    <div class="text-sm text-gray-500">Internal</div>
-                  </div>
-                </div>
-                <button
-                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
-                  <i class="fas fa-ellipsis-v"></i>
-                </button>
+            <div class="bg-white rounded-lg border">
+              <div class="p-6 flex justify-between items-center border-b border-gray-200">
+                <h3 class="text-lg font-medium">Authorized Users <span>(32)</span></h3>
+                <a href="#" class="text-sm text-[#659BC8] font-medium hover:text-[#659BC8]/80">View All</a>
               </div>
-              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
-                <div class="flex items-center">
-                  <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
-                  <div class="ml-3">
-                    <div class="text-gray-900">Michael Brown</div>
-                    <div class="text-sm text-gray-500">Internal</div>
+              <div class="py-2">
+                <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                  <div class="flex items-center">
+                    <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
+                    <div class="ml-3">
+                      <div class="text-gray-900">Michael Brown</div>
+                      <div class="text-sm text-gray-500">Internal</div>
+                    </div>
                   </div>
+                  <button
+                    class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
                 </div>
-                <button
-                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
-                  <i class="fas fa-ellipsis-v"></i>
-                </button>
-              </div>
-              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
-                <div class="flex items-center">
-                  <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
-                  <div class="ml-3">
-                    <div class="text-gray-900">Michael Brown</div>
-                    <div class="text-sm text-gray-500">Internal</div>
+                <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                  <div class="flex items-center">
+                    <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
+                    <div class="ml-3">
+                      <div class="text-gray-900">Michael Brown</div>
+                      <div class="text-sm text-gray-500">Internal</div>
+                    </div>
                   </div>
+                  <button
+                    class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
                 </div>
-                <button
-                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
-                  <i class="fas fa-ellipsis-v"></i>
-                </button>
-              </div>
-              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
-                <div class="flex items-center">
-                  <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
-                  <div class="ml-3">
-                    <div class="text-gray-900">Michael Brown</div>
-                    <div class="text-sm text-gray-500">Internal</div>
+                <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                  <div class="flex items-center">
+                    <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
+                    <div class="ml-3">
+                      <div class="text-gray-900">Michael Brown</div>
+                      <div class="text-sm text-gray-500">Internal</div>
+                    </div>
                   </div>
+                  <button
+                    class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
                 </div>
-                <button
-                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
-                  <i class="fas fa-ellipsis-v"></i>
-                </button>
-              </div>
-              <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
-                <div class="flex items-center">
-                  <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
-                  <div class="ml-3">
-                    <div class="text-gray-900">Michael Brown</div>
-                    <div class="text-sm text-gray-500">Internal</div>
+                <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                  <div class="flex items-center">
+                    <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
+                    <div class="ml-3">
+                      <div class="text-gray-900">Michael Brown</div>
+                      <div class="text-sm text-gray-500">Internal</div>
+                    </div>
                   </div>
+                  <button
+                    class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
                 </div>
-                <button
-                  class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
-                  <i class="fas fa-ellipsis-v"></i>
-                </button>
+                <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-50">
+                  <div class="flex items-center">
+                    <img class="h-10 w-10 rounded-full" src="../assets/img-account-circle-fill.png" alt="">
+                    <div class="ml-3">
+                      <div class="text-gray-900">Michael Brown</div>
+                      <div class="text-sm text-gray-500">Internal</div>
+                    </div>
+                  </div>
+                  <button
+                    class="relative -right-1 w-8 h-8 flex items-center justify-center text-gray-400 rounded-full hover:bg-gray-100 hover:text-gray-500">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
+          <div class="col-span-4 bg-white rounded-lg border p-6">
+            <div class="flex justify-between mb-4">
+              <h2 class="text-lg font-semibold">
+                Floor Map:
+                <span>Basement</span>
+              </h2>
+              <div class="mt-1 flex items-center text-sm text-gray-500">
+                <span>Coordinates: X: 120, Y: 85</span>
+              </div>
+            </div>
+            <div id="image-container"
+              class="flex-1 h-[75vh] border-r border-gray-300 overflow-hidden relative cursor-move bg-black select-none">
+              <div id="image-wrapper" class="absolute top-0 left-0">
+                <img id="floor-map" src="../assets/img-default-map.png" alt="Floor Map"
+                  class="object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+                  <i class="fas fa-location-dot absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[32px] text-red-600 cursor-pointer"
+                    title="Main Entrance"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-6 bg-white rounded-lg border border-gray-200">
+          <div class="p-6 flex justify-between items-center border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">Recent Activities</h3>
+            <a href="#" class="text-sm text-[#659BC8] font-medium hover:text-[#659BC8]/80">View All</a>
+          </div>
+          <div class="overflow-x-auto w-full">
+            <table class="w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Visitor</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Activity</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Access
+                    Method</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 mins ago</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Sarah Johnson</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Entry</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Admin</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Face Recognition</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 mins ago</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Michael Chen</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Entry</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">IT Staff</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Key Card</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10 mins ago</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Unknown</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">Exit</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Fingerprint</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Denied</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -438,7 +431,9 @@
 
   <script>
     const accessChart = echarts.init(document.getElementById('accessChart'));
-    const option = {
+    const activityChart = echarts.init(document.getElementById('activityChart'));
+
+    const accessOption = {
       animation: false, tooltip: { trigger: 'item' },
       legend: { orient: 'horizontal', left: 'center', bottom: '0%' },
       series: [{
@@ -459,7 +454,45 @@
         ]
       }]
     };
-    accessChart.setOption(option);
+    const activityOption = {
+      animation: false,
+      tooltip: {
+        trigger: 'axis'
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '0%',
+        top: '5%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: [
+          '00:00', '02:00', '04:00', '06:00', '08:00', '10:00',
+          '12:00', '14:00', '16:00', '18:00', '20:00', '22:00',
+        ]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [
+          0, 10, 20, 30, 120, 135,
+          180, 150, 100, 65, 20, 5,
+        ],
+        type: 'line',
+        smooth: true,
+        color: '#659BC8',
+      }]
+    };
+    
+    accessChart.setOption(accessOption);
+    activityChart.setOption(activityOption);
+    window.addEventListener('resize', function () {
+      activityChart.resize();
+      accessChart.resize();
+    });
   </script>
 
   <script>
