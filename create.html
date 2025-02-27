@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Door Access Dashboard</title>
+  <title>CCTV Monitoring</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet">
@@ -12,298 +12,133 @@
     src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
   <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8"
     data-border-radius='medium'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
 </head>
 
-<body class="bg-gray-50 min-h-screen">
-  <nav class="bg-white border-b border-gray-200">
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+  <nav class="bg-gray-800 border-b border-gray-700">
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <div class="flex">
-          <div class="flex-shrink-0 flex items-center"> <img class="h-8 w-auto"
-              src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <img class="h-8 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo">
+          </div>
+          <div class="ml-6 flex items-center space-x-4">
+            <h1 class="text-xl font-semibold">CCTV Monitoring</h1>
           </div>
         </div>
-        <div class="flex items-center">
-          <div class="relative mx-4">
-            <input type="text" placeholder="Search..."
-              class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-custom">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <div class="flex items-center space-x-4">
+          <div class="relative"> <input type="text" placeholder="Search cameras..."
+              class="w-64 bg-gray-700 border-0 rounded-lg pl-10 pr-4 py-2 text-sm text-gray-300 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-custom">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
               <i class="fas fa-search text-gray-400"></i>
             </div>
-          </div>
-          <button class="relative p-2 text-gray-600 hover:text-custom"> <i class="fas fa-bell"></i>
-            <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500"></span>
-          </button>
-          <div class="ml-4 flex items-center">
-            <img class="h-8 w-8 rounded-full"
-              src="https://creatie.ai/ai/api/search-image?query=A professional headshot of a person with a neutral expression, wearing business attire, shot against a light gray background&width=100&height=100&orientation=squarish&flag=4b4db042-12a4-4318-9bea-d613f8b9ee10"
-              alt="User">
           </div>
         </div>
       </div>
     </div>
   </nav>
-
-  <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center">
-          <div class="p-3 rounded-full bg-custom bg-opacity-10">
-            <i class="fas fa-door-open text-custom text-xl"></i>
-          </div>
-          <div class="ml-4">
-            <h3 class="text-sm font-medium text-gray-500">Active Doors</h3>
-            <p class="text-2xl font-semibold text-gray-900">24</p>
-          </div>
-        </div>
+  <div class="flex-1 max-w-8xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mb-6 flex items-center justify-between">
+      <div class="flex space-x-2">
+        <button class="!rounded-button bg-custom px-4 py-2 text-white font-medium text-sm"> <i
+            class="fas fa-th-large mr-2"></i>Grid View
+        </button>
+        <button class="!rounded-button bg-gray-700 px-4 py-2 text-gray-300 font-medium text-sm hover:bg-gray-600"> <i
+            class="fas fa-list mr-2"></i>List View
+        </button>
+        <button class="!rounded-button bg-gray-700 px-4 py-2 text-gray-300 font-medium text-sm hover:bg-gray-600"> <i
+            class="fas fa-map-marker-alt mr-2"></i>Map View
+        </button>
+        <button class="!rounded-button bg-gray-700 px-4 py-2 text-gray-300 font-medium text-sm hover:bg-gray-600"> <i
+            class="fas fa-expand mr-2"></i>Single View
+        </button>
       </div>
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center">
-          <div class="p-3 rounded-full bg-green-100"> <i class="fas fa-users text-green-600 text-xl"></i>
-          </div>
-          <div class="ml-4">
-            <h3 class="text-sm font-medium text-gray-500">People in Building</h3>
-            <p class="text-2xl font-semibold text-gray-900">342</p>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center">
-          <div class="p-3 rounded-full bg-yellow-100">
-            <i class="fas fa-exchange-alt text-yellow-600 text-xl"></i>
-          </div>
-          <div class="ml-4">
-            <h3 class="text-sm font-medium text-gray-500">Total Entry/Exit</h3>
-            <p class="text-2xl font-semibold text-gray-900">1,284</p>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white rounded-lg shadow p-6">
-        <div class="flex items-center">
-          <div class="p-3 rounded-full bg-purple-100">
-            <i class="fas fa-clock text-purple-600 text-xl"></i>
-          </div>
-          <div class="ml-4">
-            <h3 class="text-sm font-medium text-gray-500">Peak Hour</h3>
-            <p class="text-2xl font-semibold text-gray-900">9:00 AM</p>
-          </div>
-        </div>
+      <div class="flex items-center space-x-4"> <span class="text-sm text-gray-400">12 Active Cameras</span>
+        <button class="!rounded-button bg-gray-700 p-2 text-gray-300 hover:bg-gray-600"> <i class="fas fa-sync-alt"></i>
+        </button>
       </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow mb-8">
-      <div class="p-4 border-b border-gray-200">
-        <div class="flex items-center justify-between">
-          <h2 class="text-lg font-medium text-gray-900">Door Access Status</h2>
-          <div class="flex space-x-4">
-            <select class="border-gray-300 rounded-lg focus:border-custom focus:ring-custom">
-              <option>All Floors</option>
-              <option>Floor 1</option>
-              <option>Floor 2</option>
-              <option>Floor 3</option>
-            </select>
-            <select class="border-gray-300 rounded-lg focus:border-custom focus:ring-custom">
-              <option>Sort by Activity</option>
-              <option>Sort by Occupancy</option>
-              <option>Sort by Name</option>
-            </select>
-            <button class="!rounded-button bg-custom text-white px-4 py-2 hover:bg-custom/90"> <i
-                class="fas fa-th-large mr-2"></i>Grid View
-            </button>
+    <div class="grid grid-cols-3 gap-6">
+      <div class="bg-gray-800 rounded-lg overflow-hidden">
+        <div class="relative aspect-video bg-gray-900"> <img
+            src="./assets/cctv-1.jpg"
+            class="w-full h-full object-cover" alt="Camera Feed">
+          <div class="absolute top-4 left-4 flex items-center">
+            <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+            <span class="text-sm font-medium">LIVE</span>
           </div>
         </div>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-medium">Main Entrance</h3> <span class="text-xs text-green-400">Online</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-4">Building A - Ground Floor</p>
+          <button class="!rounded-button w-full bg-gray-700 py-2 text-sm font-medium hover:bg-gray-600"> <i
+              class="fas fa-history mr-2"></i>View Playback
+          </button>
+        </div>
       </div>
-
-      <div class="p-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-white border rounded-lg shadow-sm">
-            <div class="p-4 border-b">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="text-lg font-medium text-gray-900">Main Entrance</h3>
-                  <p class="text-sm text-gray-500">Ground Floor</p>
-                </div>
-                <span class="px-3 py-1 text-sm font-medium bg-green-100 text-green-800 rounded-full">Active</span>
-              </div>
-            </div>
-            <div class="p-4">
-              <div class="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <p class="text-sm text-gray-500">Entry Count</p>
-                  <p class="text-lg font-medium text-gray-900">245 <span class="text-green-500 text-sm">↑</span></p>
-                </div>
-                <div>
-                  <p class="text-sm text-gray-500">Exit Count</p>
-                  <p class="text-lg font-medium text-gray-900">198 <span class="text-red-500 text-sm">↓</span></p>
-                </div>
-              </div>
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <p class="text-sm text-gray-500">People Inside</p>
-                  <p class="text-lg font-medium text-gray-900">47</p>
-                </div>
-                <div class="relative h-12 w-12">
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <p class="text-sm font-medium text-custom">65%</p>
-                  </div> <svg class="transform -rotate-90" width="48" height="48">
-                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" />
-                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="4"
-                      class="text-custom" stroke-dasharray="126" stroke-dashoffset="44" />
-                  </svg>
-                </div>
-              </div>
-              <div class="flex items-center justify-between">
-                <p class="text-sm text-gray-500">
-                  <i class="fas fa-clock text-gray-400 mr-1"></i>
-                  Last activity: 2 mins ago
-                </p>
-                <button class="!rounded-button bg-custom text-white px-4 py-2 text-sm hover:bg-custom/90"> <i
-                    class="fas fa-lock-open mr-1"></i>Unlock
-                </button>
-              </div>
-            </div>
+      <div class="bg-gray-800 rounded-lg overflow-hidden">
+        <div class="relative aspect-video bg-gray-900"> <img
+            src="./assets/cctv-2.jpg"
+            class="w-full h-full object-cover" alt="Camera Feed">
+          <div class="absolute top-4 left-4 flex items-center">
+            <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+            <span class="text-sm font-medium">LIVE</span>
           </div>
-
-          <div class="bg-white border rounded-lg shadow-sm">
-            <div class="p-4 border-b">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="text-lg font-medium text-gray-900">Office Area</h3>
-                  <p class="text-sm text-gray-500">Floor 1</p>
-                </div>
-                <span class="px-3 py-1 text-sm font-medium bg-yellow-100 text-yellow-800 rounded-full">High
-                  Traffic</span>
-              </div>
-            </div>
-            <div class="p-4">
-              <div class="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <p class="text-sm text-gray-500">Entry Count</p>
-                  <p class="text-lg font-medium text-gray-900">178 <span class="text-green-500 text-sm">↑</span></p>
-                </div>
-                <div>
-                  <p class="text-sm text-gray-500">Exit Count</p>
-                  <p class="text-lg font-medium text-gray-900">156 <span class="text-red-500 text-sm">↓</span></p>
-                </div>
-              </div>
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <p class="text-sm text-gray-500">People Inside</p>
-                  <p class="text-lg font-medium text-gray-900">22</p>
-                </div>
-                <div class="relative h-12 w-12">
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <p class="text-sm font-medium text-custom">85%</p>
-                  </div> <svg class="transform -rotate-90" width="48" height="48">
-                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" />
-                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="4"
-                      class="text-custom" stroke-dasharray="126" stroke-dashoffset="19" />
-                  </svg>
-                </div>
-              </div>
-              <div class="flex items-center justify-between">
-                <p class="text-sm text-gray-500">
-                  <i class="fas fa-clock text-gray-400 mr-1"></i>
-                  Last activity: 5 mins ago
-                </p>
-                <button class="!rounded-button bg-custom text-white px-4 py-2 text-sm hover:bg-custom/90"> <i
-                    class="fas fa-lock-open mr-1"></i>Unlock
-                </button>
-              </div>
-            </div>
+        </div>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-medium">Office Area</h3> <span class="text-xs text-green-400">Online</span>
           </div>
-
-          <div class="bg-white border rounded-lg shadow-sm">
-            <div class="p-4 border-b">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="text-lg font-medium text-gray-900">Conference Room</h3>
-                  <p class="text-sm text-gray-500">Floor 2</p>
-                </div>
-                <span class="px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded-full">Inactive</span>
-              </div>
-            </div>
-            <div class="p-4">
-              <div class="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <p class="text-sm text-gray-500">Entry Count</p>
-                  <p class="text-lg font-medium text-gray-900">45 <span class="text-gray-500 text-sm">-</span></p>
-                </div>
-                <div>
-                  <p class="text-sm text-gray-500">Exit Count</p>
-                  <p class="text-lg font-medium text-gray-900">45 <span class="text-gray-500 text-sm">-</span></p>
-                </div>
-              </div>
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <p class="text-sm text-gray-500">People Inside</p>
-                  <p class="text-lg font-medium text-gray-900">0</p>
-                </div>
-                <div class="relative h-12 w-12">
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <p class="text-sm font-medium text-gray-400">0%</p>
-                  </div> <svg class="transform -rotate-90" width="48" height="48">
-                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" />
-                    <circle cx="24" cy="24" r="20" fill="none" stroke="#e5e7eb" stroke-width="4" stroke-dasharray="126"
-                      stroke-dashoffset="126" />
-                  </svg>
-                </div>
-              </div>
-              <div class="flex items-center justify-between">
-                <p class="text-sm text-gray-500">
-                  <i class="fas fa-clock text-gray-400 mr-1"></i>
-                  Last activity: 1 hour ago
-                </p>
-                <button class="!rounded-button bg-gray-100 text-gray-700 px-4 py-2 text-sm hover:bg-gray-200"> <i
-                    class="fas fa-lock mr-1"></i>Locked
-                </button>
-              </div>
-            </div>
+          <p class="text-sm text-gray-400 mb-4">Building A - Floor 2</p>
+          <button class="!rounded-button w-full bg-gray-700 py-2 text-sm font-medium hover:bg-gray-600"> <i
+              class="fas fa-history mr-2"></i>View Playback
+          </button>
+        </div>
+      </div>
+      <div class="bg-gray-800 rounded-lg overflow-hidden">
+        <div class="relative aspect-video bg-gray-900"> <img
+            src="./assets/cctv-3.jpg"
+            class="w-full h-full object-cover" alt="Camera Feed">
+          <div class="absolute top-4 left-4 flex items-center">
+            <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+            <span class="text-sm font-medium">LIVE</span>
           </div>
+        </div>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-medium">Parking Entrance</h3> <span class="text-xs text-green-400">Online</span>
+          </div>
+          <p class="text-sm text-gray-400 mb-4">Building A - Basement</p>
+          <button class="!rounded-button w-full bg-gray-700 py-2 text-sm font-medium hover:bg-gray-600"> <i
+              class="fas fa-history mr-2"></i>View Playback
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="bg-white rounded-lg shadow">
-      <div class="p-4 border-b border-gray-200">
-        <h2 class="text-lg font-medium text-gray-900">Recent Activities</h2>
-      </div>
-      <div class="p-4">
-        <div class="space-y-4">
-          <div class="flex items-center">
-            <div class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
-              <i class="fas fa-door-open text-green-600"></i>
-            </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-900">Main Entrance - Entry</p>
-              <p class="text-sm text-gray-500">John Smith entered through Main Entrance</p>
-            </div>
-            <p class="ml-auto text-sm text-gray-500">2 mins ago</p>
-          </div>
-          <div class="flex items-center">
-            <div class="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center"> <i
-                class="fas fa-door-closed text-red-600"></i>
-            </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-900">Office Area - Exit</p>
-              <p class="text-sm text-gray-500">Sarah Johnson left through Office Area</p>
-            </div>
-            <p class="ml-auto text-sm text-gray-500">5 mins ago</p>
-          </div>
-          <div class="flex items-center">
-            <div class="h-8 w-8 rounded-full bg-yellow-100 flex items-center justify-center"> <i
-                class="fas fa-exclamation-triangle text-yellow-600"></i>
-            </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-900">Conference Room - Alert</p>
-              <p class="text-sm text-gray-500">Door held open for too long</p>
-            </div>
-            <p class="ml-auto text-sm text-gray-500">15 mins ago</p>
-          </div>
+  <footer class="bg-gray-800 border-t border-gray-700">
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <span class="text-sm text-gray-400">System Status: Operational</span>
+          <span class="text-sm text-gray-400">Last Updated: 2 mins ago</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button class="!rounded-button bg-red-600 px-4 py-2 text-sm font-medium hover:bg-red-700"> <i
+              class="fas fa-exclamation-triangle mr-2"></i>Emergency
+          </button>
+          <button class="!rounded-button bg-gray-700 px-4 py-2 text-sm font-medium hover:bg-gray-600"> <i
+              class="fas fa-cog mr-2"></i>Settings
+          </button>
         </div>
       </div>
     </div>
-  </main>
+  </footer>
 </body>
 
 </html>

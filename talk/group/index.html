@@ -4,17 +4,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smart Access - Devices</title>
+  <title>Access Control Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
   <script
     src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
   <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8"
-    data-border-radius="medium"></script>
+    data-border-radius="small"></script>
+
+
+  <style>
+    .flatpickr-calendar {
+      z-index: 1000 !important;
+      /* Supaya nggak ketutup elemen lain */
+    }
+  </style>
 </head>
 
-<body class="bg-gray-50 font-sans">
+<body class="bg-gray-50 min-h-screen">
   <div class="min-h-screen flex flex-col lg:flex-row">
     <aside class="w-full lg:w-60 bg-white border-b lg:border-r border-gray-200 lg:fixed lg:h-full">
       <a href="../../">
@@ -48,7 +57,8 @@
             CCTV
           </div>
         </a>
-        <a href="../../talk/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+        <a href="../../talk/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
           <div class="flex items-center">
             <i class="fas fa-walkie-talkie text-base w-5 h-5 flex justify-center items-center mr-4"></i>
             Walkie-Talkie
@@ -68,9 +78,9 @@
             <i class="fas fa-user-shield text-base w-5 h-5 flex justify-center items-center mr-4"></i>
             Admin Panel
           </div>
-          <i id="chevron" class="fas fa-chevron-down text-gray-400 text-xs transition-transform rotate-180"></i>
+          <i id="chevron" class="fas fa-chevron-down text-gray-400 text-xs transition-transform"></i>
         </a>
-        <div class="space-y-1" id="management-submenu">
+        <div class="space-y-1 hidden" id="management-submenu">
           <a href="../../management/door/"
             class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
             Door Management
@@ -80,7 +90,7 @@
             User Management
           </a>
           <a href="../../management/device/"
-            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
             Device Management
           </a>
           <a href="../../management/cctv/"
@@ -93,13 +103,20 @@
     <main class="flex-1 lg:ml-60">
       <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="px-6 sm:px-6 py-2 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
-          <h1 class="text-xl font-semibold text-gray-800">Device Management</h1>
+          <div class="flex items-center">
+            <div id="back-button"
+              class="relative -left-2 w-10 h-10 flex justify-center items-center rounded-full text-gray-900 hover:bg-gray-100 cursor-pointer"
+              onclick="window.history.back();">
+              <i class="fas fa-arrow-left text-lg"></i>
+            </div>
+            <h1 class="text-xl font-semibold text-gray-800">Group Call</h1>
+          </div>
           <div class="flex items-center space-x-4">
             <button class="relative p-2 text-gray-400 hover:text-gray-500">
               <i class="fas fa-bell"></i>
               <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400"></span>
             </button>
-            <div id="openModal" class="flex items-center p-2 rounded-md hover:cursor-pointer hover:bg-gray-50">
+            <div id="openModal" class="p-2 flex items-center rounded-md hover:cursor-pointer hover:bg-gray-50">
               <img src="../../assets/img-account-circle-fill.png" class="h-8 w-8 rounded-full" alt="Profile" />
               <span class="ml-3 text-sm font-medium text-gray-700">John Smith</span>
               <i class="fas fa-chevron-down ml-2 text-gray-400 text-xs"></i>
@@ -133,7 +150,6 @@
               </li>
             </ul>
           </div>
-        </div>
       </header>
       <div class="flex-1 max-w-8xl w-full mx-auto px-6 py-6">
         <div class="flex items-center justify-between mb-6 gap-4">
@@ -145,74 +161,25 @@
                 </div>
                 <input type="text"
                   class="block w-full pl-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-custom focus:border-custom"
-                  placeholder="Search device" />
+                  placeholder="Search operator" />
               </div>
               <!-- <select
-                class="block pl-3 pr-10 py-2 text-sm border-gray-300 rounded-md focus:ring-custom focus:border-custom">
-                <option>All Access Method</option>
-                <option>Face Recognition</option>
-                <option>Fingerprint</option>
-                <option>Card Access</option>
-                <option>PIN Code</option>
-              </select> -->
-              <select
                 class="block pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-custom focus:border-custom">
-                <option>All Status</option>
-                <option>Online</option>
-                <option>Offline</option>
-              </select>
+                <option>All Group</option>
+                <option>Security</option>
+                <option>Logistics</option>
+              </select> -->
             </div>
           </div>
-          <a href="add-device.html">
+          <a href="./add-group.html">
             <button class="rounded flex items-center px-4 py-2 text-sm bg-custom text-white hover:bg-custom/90">
               <i class="fas fa-plus mr-2"></i>
-              <span>Add New Device</span>
+              <span>Add New Group</span>
             </button>
           </a>
         </div>
 
         <div class="bg-white border border-gray-200 rounded-md">
-          <nav class="flex border-b border-gray-200" aria-label="Tabs">
-            <button
-              class="px-6 py-4 border-b-2 font-medium text-sm border-custom text-custom hover:text-custom whitespace-nowrap"
-              aria-current="page" onclick="switchTab('doors')">
-              Access Control
-            </button>
-            <button
-              class="px-6 py-4 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-custom whitespace-nowrap"
-              onclick="switchTab('floors')">
-              CCTV
-            </button>
-            <button
-              class="px-6 py-4 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-custom whitespace-nowrap"
-              onclick="switchTab('floors')">
-              Walkie-Talkie
-            </button>
-          </nav>
-          <!-- <div class="flex items-center justify-between border-b border-gray-200">
-            <a href="add-device.html">
-              <button class="rounded flex items-center px-4 py-2 text-sm bg-custom text-white hover:bg-custom/90 mr-3">
-                <i class="fas fa-plus mr-2"></i>
-                <span>Add New Device</span>
-              </button>
-            </a>
-          </div> -->
-          <!-- <div class="px-4 py-3 flex items-center space-x-2">
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <i class="fas fa-search text-gray-400"></i>
-              </div>
-              <input type="text"
-                class="block w-full pl-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-custom focus:border-custom"
-                placeholder="Search device" />
-            </div>
-            <select
-              class="block pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-custom focus:border-custom">
-              <option>All Status</option>
-              <option>Online</option>
-              <option>Offline</option>
-            </select>
-          </div> -->
           <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
               <thead class="bg-gray-100">
@@ -223,15 +190,19 @@
                   </th>
                   <th scope="col"
                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Device Name
+                    Group Name
                   </th>
                   <th scope="col"
                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Access Method
+                    Member
                   </th>
                   <th scope="col"
                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
+                    Group Leader
+                  </th>
+                  <th scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Last Call
                   </th>
                   <th scope="col"
                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -245,27 +216,21 @@
                     <input type="checkbox" class="rounded border-gray-300 text-custom focus:ring-custom" />
                   </td>
                   <td class="px-6 py-3 whitespace-nowrap">
-                    <div class="text-sm font-medium text-gray-900">HIKVISION 001-KSA</div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">
-                      <div class="flex gap-1">
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Face</span>
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Fingerprint</span>
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Remote</span>
-                      </div>
+                    <div id="door-name" class="text-sm font-medium text-gray-900">
+                      Security
                     </div>
                   </td>
                   <td class="px-6 py-3 whitespace-nowrap">
-                    <div class="flex items-center gap-1 text-sm text-green-600 font-medium">
-                      <i class="fas fa-circle text-[10px]"></i>
-                      <span>
-                        Online
-                      </span>
-                    </div>
+                    <span
+                      class="px-2 py-1 inline-flex text-sm leading-5 rounded border border-green-700 text-green-700 hover:bg-green-100 cursor-pointer">
+                      32 members
+                    </span>
+                  </td>
+                  <td class="px-6 py-3 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">John Doe</div>
+                  </td>
+                  <td class="px-6 py-3 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">12 min ago</div>
                   </td>
                   <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
                     <button class="px-3 py-2 rounded-full hover:bg-custom/10 text-gray-400 hover:text-custom">
@@ -281,63 +246,21 @@
                     <input type="checkbox" class="rounded border-gray-300 text-custom focus:ring-custom" />
                   </td>
                   <td class="px-6 py-3 whitespace-nowrap">
-                    <div class="text-sm font-medium text-gray-900">HIKVISION 002-KSA</div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">
-                      <div class="flex gap-1">
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Face</span>
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Card</span>
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Fingerprint</span>
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Remote</span>
-                      </div>
+                    <div class="text-sm font-medium text-gray-900">
+                      Logistics
                     </div>
                   </td>
                   <td class="px-6 py-3 whitespace-nowrap">
-                    <div class="flex items-center gap-1 text-sm text-green-600 font-medium">
-                      <i class="fas fa-circle text-[10px]"></i>
-                      <span>
-                        Online
-                      </span>
-                    </div>
-                  </td>
-                  <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
-                    <button class="px-3 py-2 rounded-full hover:bg-custom/10 text-gray-400 hover:text-custom">
-                      <i class="fas fa-edit text-base"></i>
-                    </button>
-                    <button class="px-3 py-2 rounded-full hover:bg-red-400/10 text-gray-400 hover:text-red-400">
-                      <i class="fas fa-trash text-base"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr class="hover:bg-gray-50">
-                  <td class="pl-6 py-3 whitespace-nowrap">
-                    <input type="checkbox" class="rounded border-gray-300 text-custom focus:ring-custom" />
+                    <span
+                      class="px-2 py-1 inline-flex text-sm leading-5 rounded border border-green-700 text-green-700 hover:bg-green-100 cursor-pointer">
+                      9 members
+                    </span>
                   </td>
                   <td class="px-6 py-3 whitespace-nowrap">
-                    <div class="text-sm font-medium text-gray-900">HIKVISION 003-KSA</div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">
-                      <div class="flex gap-1">
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Fingerprint</span>
-                        <span
-                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Remote</span>
-                      </div>
-                    </div>
+                    <div class="text-sm text-gray-500">Sarah Wilson</div>
                   </td>
                   <td class="px-6 py-3 whitespace-nowrap">
-                    <div class="flex items-center gap-1 text-sm text-red-500 font-medium">
-                      <i class="fas fa-circle text-[10px]"></i>
-                      <span>
-                        Offline
-                      </span>
-                    </div>
+                    <div class="text-sm text-gray-500">15 min ago</div>
                   </td>
                   <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
                     <button class="px-3 py-2 rounded-full hover:bg-custom/10 text-gray-400 hover:text-custom">
@@ -422,7 +345,6 @@
       });
     });
   </script>
-
 </body>
 
 </html>

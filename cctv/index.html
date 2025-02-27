@@ -35,8 +35,7 @@
         </div>
       </a>
       <nav class="my-4 px-2 space-y-1">
-        <a href="../"
-          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+        <a href="../" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
           <i class="fas fa-house text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Dashboard
         </a>
@@ -44,8 +43,7 @@
           <i class="fas fa-history text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Activity Log
         </a>
-        <a href="../guest/"
-          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+        <a href="../guest/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
           <i class="fas fa-users text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Guest Reservation
         </a>
@@ -55,10 +53,17 @@
             Door Access
           </div>
         </a>
-        <a href="../cctv/" class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
+        <a href="../cctv/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
           <div class="flex items-center">
             <i class="fas fa-video text-base w-5 h-5 flex justify-center items-center mr-4"></i>
             CCTV
+          </div>
+        </a>
+        <a href="../talk/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-walkie-talkie text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Walkie-Talkie
           </div>
         </a>
         <!-- <a href="../user/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
@@ -142,7 +147,146 @@
           </div>
       </header>
 
-      <div class="p-6"></div>
+      <div class="p-4 bg-gray-50" id="fullscreen">
+        <div class="mb-4 flex items-center justify-between">
+          <nav class="flex bg-white border rounded overflow-hidden" aria-label="Tabs">
+            <button class="flex justify-center items-center py-3 px-3 text-gray-500 hover:text-custom"
+              onclick="switchTab('grid-view')" aria-current="page">
+              <i class="fas fa-border-all"></i>
+            </button>
+            <button class="flex justify-center items-center py-3 px-3 text-gray-500 hover:text-custom"
+              onclick="switchTab('map-view')">
+              <i class="fas fa-location-dot"></i>
+            </button>
+          </nav>
+          <span class="text-sm text-gray-400">5 Active Cameras</span>
+          <div class="flex items-center space-x-2">
+            <button id="sync-button"
+              class="flex justify-center items-center py-3 px-3 bg-white text-gray-500 border rounded hover:text-gray-900 hover:border-gray-300">
+              <i class="fas fa-sync-alt"></i>
+            </button>
+            <button id="fullscreen-button"
+              class="flex justify-center items-center py-3 px-3 bg-white text-gray-500 border rounded hover:text-gray-900 hover:border-gray-300">
+              <i id="icon-fullscreen" class="fas fa-expand"></i>
+            </button>
+          </div>
+        </div>
+        <div id="grid-view" class="grid grid-cols-3 gap-0.5">
+          <div class="bg-black overflow-hidden relative cursor-pointer hover:ring-2 ring-red-500 group">
+            <div class="relative aspect-video bg-gray-900"> <img src="../assets/cctv-1.jpg"
+                class="w-full h-full object-cover" alt="Camera Feed">
+              <div class="absolute top-4 left-4 flex items-center">
+                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+                <span class="text-sm text-white shadow font-medium">LIVE</span>
+              </div>
+            </div>
+            <!-- <div id="caption" class="px-4 py-2 bg-white flex w-full text-gray-700 items-center justify-between">
+              <h3 class="text-sm font-medium">Main Entrance</h3>
+              <span class="text-xs">Floor 1</span>
+            </div> -->
+          </div>
+          <div class="bg-black overflow-hidden relative cursor-pointer hover:ring-2 ring-red-500 group">
+            <div class="relative aspect-video bg-gray-900"> <img src="../assets/cctv-2.jpg"
+                class="w-full h-full object-cover" alt="Camera Feed">
+              <div class="absolute top-4 left-4 flex items-center">
+                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+                <span class="text-sm text-white shadow font-medium">LIVE</span>
+              </div>
+            </div>
+            <!-- <div id="caption" class="px-4 py-2 bg-white flex w-full text-gray-700 items-center justify-between">
+              <h3 class="text-sm font-medium">Office Area</h3>
+              <span class="text-xs">Floor 2</span>
+            </div> -->
+          </div>
+          <div class="bg-black overflow-hidden relative cursor-pointer hover:ring-2 ring-red-500 group">
+            <div class="relative aspect-video bg-gray-900"> <img src="../assets/cctv-3.jpg"
+                class="w-full h-full object-cover" alt="Camera Feed">
+              <div class="absolute top-4 left-4 flex items-center">
+                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+                <span class="text-sm text-white shadow font-medium">LIVE</span>
+              </div>
+            </div>
+            <!-- <div id="caption" class="px-4 py-2 bg-white flex w-full text-gray-700 items-center justify-between">
+              <h3 class="text-sm font-medium">Parking Entrance</h3>
+              <span class="text-xs">Basement</span>
+            </div> -->
+          </div>
+          <div class="bg-black overflow-hidden relative cursor-pointer hover:ring-2 ring-red-500 group">
+            <div class="relative aspect-video bg-gray-900"> <img src="../assets/cctv-5.jpg"
+                class="w-full h-full object-cover" alt="Camera Feed">
+              <div class="absolute top-4 left-4 flex items-center">
+                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+                <span class="text-sm text-white shadow font-medium">LIVE</span>
+              </div>
+            </div>
+            <!-- <div id="caption" class="px-4 py-2 bg-white flex w-full text-gray-700 items-center justify-between">
+              <h3 class="text-sm font-medium">Main Entrance</h3>
+              <span class="text-xs">Floor 1</span>
+            </div> -->
+          </div>
+          <div class="bg-black overflow-hidden relative cursor-pointer hover:ring-2 ring-red-500 group">
+            <div class="relative aspect-video bg-gray-900"> <img src="../assets/cctv-4.jpg"
+                class="w-full h-full object-cover" alt="Camera Feed">
+              <div class="absolute top-4 left-4 flex items-center">
+                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+                <span class="text-sm text-white shadow font-medium">LIVE</span>
+              </div>
+            </div>
+            <!-- <div id="caption" class="px-4 py-2 bg-white flex w-full text-gray-700 items-center justify-between">
+              <h3 class="text-sm font-medium">Office Area</h3>
+              <span class="text-xs">Floor 2</span>
+            </div> -->
+          </div>
+          <div class="bg-black overflow-hidden relative cursor-pointer hover:ring-2 ring-red-500 group">
+            <div class="relative aspect-video bg-gray-900">
+              <!-- <img src="../assets/cctv-5.jpg"
+                class="w-full h-full object-cover" alt="Camera Feed"> -->
+              <div class="absolute top-4 left-4 flex items-center">
+                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></div>
+                <span class="text-sm text-white shadow font-medium">OFF</span>
+              </div>
+            </div>
+            <!-- <div id="caption" class="px-4 py-2 bg-white flex w-full text-gray-700 items-center justify-between">
+              <h3 class="text-sm font-medium">Parking Entrance</h3>
+              <span class="text-xs">Basement</span>
+            </div> -->
+          </div>
+        </div>
+        <div id="map-view" class="w-full hidden">
+          <div class="w-full relative">
+            <img id="floor-map" src="../assets/img-default-map.png" alt="Floor Map"
+              class="object-cover w-full h-[88vh]">
+            <div class="flex justify-center items-center absolute top-1/2 left-1/2 translate-x-1/2 translate-y-1/2">
+              <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+              <i class="fas fa-location-dot absolute text-[32px] text-red-600 cursor-pointer"
+                title="Main Entrance"></i>
+            </div>
+            <div class="flex justify-center items-center absolute top-40 right-32 translate-x-1/2 translate-y-1/2">
+              <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+              <i class="fas fa-location-dot absolute text-[32px] text-red-600 cursor-pointer"
+                title="Parking Entrance"></i>
+            </div>
+            <div class="flex justify-center items-center absolute bottom-40 left-40 translate-x-1/2 translate-y-1/2">
+              <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+              <i class="fas fa-location-dot absolute text-[32px] text-red-600 cursor-pointer"
+                title="Office Room"></i>
+            </div>
+            <div class="flex justify-center items-center absolute top-40 left-20 translate-x-1/2 translate-y-1/2">
+              <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+              <i class="fas fa-location-dot absolute text-[32px] text-red-600 cursor-pointer"
+                title="Lobby"></i>
+            </div>
+            <div class="flex justify-center items-center absolute bottom-20 right-1/2 translate-x-1/2 translate-y-1/2">
+              <div class="w-8 h-8 bg-blue-400 rounded-full animate-ping"></div>
+              <i class="fas fa-location-dot absolute text-[32px] text-red-600 cursor-pointer"
+                title="Research Lab"></i>
+            </div>
+          </div>
+          <!-- <div id="image-container"
+            class="flex-1 h-[75vh] border-r border-gray-300 overflow-hidden relative cursor-move bg-black select-none">
+          </div> -->
+        </div>
+      </div>
     </main>
   </div>
 
@@ -178,6 +322,71 @@
       });
     });
   </script>
+
+  <script>
+    const cctvContainer = document.getElementById("fullscreen");
+    const fullScreenButton = document.getElementById("fullscreen-button");
+    const icon = document.getElementById("icon-fullscreen");
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        if (cctvContainer.requestFullscreen) {
+          cctvContainer.requestFullscreen();
+        } else if (cctvContainer.mozRequestFullScreen) { // Firefox
+          cctvContainer.mozRequestFullScreen();
+        } else if (cctvContainer.webkitRequestFullscreen) { // Chrome, Safari, Opera
+          cctvContainer.webkitRequestFullscreen();
+        } else if (cctvContainer.msRequestFullscreen) { // IE/Edge
+          cctvContainer.msRequestFullscreen();
+        }
+        icon.classList.remove("fa-expand");
+        icon.classList.add("fa-compress");
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+        icon.classList.remove("fa-compress");
+        icon.classList.add("fa-expand");
+      }
+    }
+
+    fullScreenButton.addEventListener("click", toggleFullscreen);
+  </script>
+
+  <script>
+    function switchTab(tabName) {
+      // Sembunyikan semua konten tab
+      document.getElementById('grid-view').classList.add('hidden');
+      document.getElementById('map-view').classList.add('hidden');
+
+      // Tampilkan konten tab yang dipilih
+      document.getElementById(tabName).classList.remove('hidden');
+
+      // Update tampilan tombol tab
+      const buttons = document.querySelectorAll('nav button');
+      buttons.forEach(button => {
+        if (button.getAttribute('onclick').includes(tabName)) {
+          button.classList.add('text-custom', 'bg-gray-100');
+          button.classList.remove('bg-white');
+        } else {
+          button.classList.remove('text-custom', 'bg-gray-100');
+          button.classList.add('bg-white');
+        }
+      });
+    }
+
+    // Set tab default saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+      switchTab('grid-view');
+    });
+  </script>
+  
 </body>
 
 </html>

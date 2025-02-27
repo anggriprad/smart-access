@@ -48,6 +48,12 @@
             CCTV
           </div>
         </a>
+        <a href="../../talk/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-walkie-talkie text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Walkie-Talkie
+          </div>
+        </a>
         <!-- <a href="../../user/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
           <i class="fas fa-users text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Users
@@ -189,7 +195,7 @@
                       <input type="checkbox" class="rounded border-gray-300 text-custom focus:ring-custom" />
                     </th>
                     <th scope="col"
-                      class="pr-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Door Name
                     </th>
                     <th scope="col"
@@ -198,11 +204,15 @@
                     </th>
                     <th scope="col"
                       class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Permission
+                      Entry Device
                     </th>
                     <th scope="col"
                       class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Last Activity
+                      Exit Device
+                    </th>
+                    <th scope="col"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Permission
                     </th>
                     <th scope="col"
                       class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -215,7 +225,7 @@
                     <td class="pl-6 py-3 whitespace-nowrap">
                       <input type="checkbox" class="rounded border-gray-300 text-custom focus:ring-custom" />
                     </td>
-                    <td class="pr-6 py-3 whitespace-nowrap">
+                    <td class="px-6 py-3 whitespace-nowrap">
                       <a href="door-detail.html">
                         <div id="door-name" class="text-sm font-medium text-gray-900 hover:underline cursor-pointer">
                           Main Entrance
@@ -223,7 +233,13 @@
                       </a>
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap">
-                      <div class="text-sm text-gray-900">Floor 1</div>
+                      <div class="text-sm text-gray-500">Basement</div>
+                    </td>
+                    <td class="px-6 py-3 whitespace-nowrap">
+                      <div class="text-sm text-gray-500">DS-KAS321</div>
+                    </td>
+                    <td class="px-6 py-3 whitespace-nowrap">
+                      <div class="text-sm text-gray-500">DS-KAS541</div>
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap">
                       <span
@@ -231,9 +247,6 @@
                         32 users
                       </span>
                     </td>
-                    <td class="px-6 py-3 whitespace-nowrap">
-                      <div class="text-sm text-gray-500">2 mins ago</div>
-                    </td>
                     <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
                       <button class="px-3 py-2 rounded-full hover:bg-custom/10 text-gray-400 hover:text-custom">
                         <i class="fas fa-edit text-base"></i>
@@ -247,13 +260,19 @@
                     <td class="pl-6 py-3 whitespace-nowrap">
                       <input type="checkbox" class="rounded border-gray-300 text-custom focus:ring-custom" />
                     </td>
-                    <td class="pr-6 py-3 whitespace-nowrap">
+                    <td class="px-6 py-3 whitespace-nowrap">
                       <div class="text-sm font-medium text-gray-900">
                         Research Lab
                       </div>
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap">
-                      <div class="text-sm text-gray-900">Basement</div>
+                      <div class="text-sm text-gray-500">Floor 1</div>
+                    </td>
+                    <td class="px-6 py-3 whitespace-nowrap">
+                      <div class="text-sm text-gray-500">DS-KAS321</div>
+                    </td>
+                    <td class="px-6 py-3 whitespace-nowrap">
+                      <div class="text-sm text-gray-500">DS-KAS541</div>
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap">
                       <span
@@ -261,9 +280,6 @@
                         9 users
                       </span>
                     </td>
-                    <td class="px-6 py-3 whitespace-nowrap">
-                      <div class="text-sm text-gray-500">17 mins ago</div>
-                    </td>
                     <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
                       <button class="px-3 py-2 rounded-full hover:bg-custom/10 text-gray-400 hover:text-custom">
                         <i class="fas fa-edit text-base"></i>
@@ -277,22 +293,25 @@
                     <td class="pl-6 py-3 whitespace-nowrap">
                       <input type="checkbox" class="rounded border-gray-300 text-custom focus:ring-custom" />
                     </td>
-                    <td class="pr-6 py-3 whitespace-nowrap">
+                    <td class="px-6 py-3 whitespace-nowrap">
                       <div class="text-sm font-medium text-gray-900">
                         Server Room
                       </div>
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap">
-                      <div class="text-sm text-gray-900">Floor 2</div>
+                      <div class="text-sm text-gray-500">Floor 2</div>
+                    </td>
+                    <td class="px-6 py-3 whitespace-nowrap">
+                      <div class="text-sm text-gray-500">DS-KAS321</div>
+                    </td>
+                    <td class="px-6 py-3 whitespace-nowrap">
+                      <div class="text-sm text-gray-500">DS-KAS541</div>
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap">
                       <span
                         class="px-2 py-1 inline-flex text-sm leading-5 rounded border border-green-700 text-green-700 hover:bg-green-100 cursor-pointer">
                         17 users
                       </span>
-                    </td>
-                    <td class="px-6 py-3 whitespace-nowrap">
-                      <div class="text-sm text-gray-500">1 mins ago</div>
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
                       <button class="px-3 py-2 rounded-full hover:bg-custom/10 text-gray-400 hover:text-custom">
@@ -467,7 +486,7 @@
               </div>
               <div class="mb-6">
                 <div class="pb-2 flex justify-between items-center">
-                  <h3 class="text-lg font-medium text-gray-900">Authorized Users</h3>
+                  <h3 class="text-lg font-medium text-gray-900">Internalized Users</h3>
                   <a href="#" class="text-sm text-[#659BC8] font-medium hover:text-[#659BC8]/80">View All</a>
                 </div>
                 <div class="py-2 space-y-2">

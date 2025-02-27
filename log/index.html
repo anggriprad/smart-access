@@ -52,6 +52,12 @@
             CCTV
           </div>
         </a>
+        <a href="../talk/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-walkie-talkie text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Walkie-Talkie
+          </div>
+        </a>
         <!-- <a href="../user/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
           <i class="fas fa-users text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Users
@@ -60,11 +66,11 @@
           <i class="fas fa-tablet-screen-button text-base w-5 h-5 flex justify-center items-center mr-4"></i>
           Devices
         </a> -->
-        <a href="#" id="management"
+        <a href="" id="management"
           class="flex items-center justify-between p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
           <div class="flex items-center">
-            <i class="fas fa-gear text-base w-5 h-5 flex justify-center items-center mr-4"></i>
-            Access Management
+            <i class="fas fa-user-shield text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Admin Panel
           </div>
           <i id="chevron" class="fas fa-chevron-down text-gray-400 text-xs transition-transform"></i>
         </a>
@@ -221,14 +227,9 @@
             </div>
             <div class="flex gap-2">
               <select id="" class="rounded border-gray-300 text-sm cursor-pointer">
-                <option value="">Sort by</option>
-                <option value="time">Time</option>
-                <option value="door">Door</option>
-                <option value="activity">Activity</option>
-                <option value="visitor">Visitor</option>
-                <option value="role">Role</option>
-                <option value="access-method">Access method</option>
-                <option value="status">Status</option>
+                <option value="date">Sort by Date</option>
+                <option value="door">Sort by Door</option>
+                <option value="visitor">Sort by Visitor</option>
               </select>
               <button
                 class="px-3 rounded flex items-center justify-center text-sm border border-gray-300 hover:bg-gray-50"
@@ -240,7 +241,7 @@
           <div class="overflow-x-auto w-full">
             <table class="w-full">
               <thead class="bg-gray-100">
-                <tr class="hover:bg-gray-50 cursor-pointer">
+                <tr>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time
                   </th>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Door</th>
@@ -256,33 +257,33 @@
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                <tr class="hover:bg-gray-50 cursor-pointer">
+                <tr class="hover:bg-blue-100/10 cursor-pointer group">
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12 Feb 2025, 09:21</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Main Entrance</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 group-hover:text-custom">Main Entrance</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Entry</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Sarah Johnson</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Internal</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Staff</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Face Recognition</td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <span
                       class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
                   </td>
                 </tr>
-                <tr class="hover:bg-gray-50 cursor-pointer">
+                <tr class="hover:bg-blue-100/10 cursor-pointer group">
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12 Feb 2025, 09:17</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Server Room</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 group-hover:text-custom">Server Room</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Entry</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Michael Chen</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Internal</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Staff</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Key Card</td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <span
                       class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
                   </td>
                 </tr>
-                <tr class="hover:bg-gray-50 cursor-pointer">
+                <tr class="hover:bg-blue-100/10 cursor-pointer group">
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12 Feb 2025, 08:58</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Conference Room</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 group-hover:text-custom">Conference Room</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">Exit</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Guest</td>
@@ -292,9 +293,9 @@
                       class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Granted</span>
                   </td>
                 </tr>
-                <tr class="hover:bg-gray-50 cursor-pointer">
+                <tr class="hover:bg-blue-100/10 cursor-pointer group">
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12 Feb 2025, 08:58</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Conference Room</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 group-hover:text-custom">Conference Room</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">Exit</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Unknown</td>
@@ -306,6 +307,51 @@
                 </tr>
               </tbody>
             </table>
+            <!-- Modal Detail -->
+            <div id="modal-detail" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+              <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+                <div class="px-6 py-2 border-b border-gray-200 flex justify-between items-center">
+                  <h3 class="text-lg font-medium">Detail Log</h3>
+                  <button id="close-modal-detail"
+                    class="relative right-[-10px] flex items-center w-10 h-10 justify-center rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-50">
+                    <i class="fas fa-times text-lg"></i>
+                  </button>
+                </div>
+                <div class="p-6 max-h-[60vh] overflow-y-auto space-y-4">
+                  <div class="flex gap-4 justify-between">
+                    <div>
+                      <p class="text-xs text-green-600 uppercase">Entry</p>
+                      <h6 class="text-lg font-medium mt-1">Main Entrance</h3>
+                      <p class="text-sm text-gray-500">Basement</p>
+                    </div>
+                    <p class="text-xs text-gray-500">12 Feb 2025, 09:41</p>
+                  </div>
+                  <div class="p-2 flex items-center bg-gray-50 rounded-lg">
+                    <img src="../assets/img-account-circle-fill.png" alt="" class="w-10 mr-2">
+                    <div>
+                      <h3>Sarah Wilson</h3>
+                      <p class="text-sm text-gray-500">Staff</p>
+                    </div>
+                  </div>
+                  <div class="p-2 flex">
+                    <div class="flex items-center flex-1">
+                      <i class="fas fa-fingerprint text-2xl text-blue-600 mr-4"></i>
+                      <div>
+                        <p class="text-xs text-gray-500">Access Method</p>
+                        <p class="text-sm mt-1">Fingerprint</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center flex-1">
+                      <i class="fas fa-check text-2xl text-green-600 mr-4"></i>
+                      <div>
+                        <p class="text-xs text-gray-500">Status</p>
+                        <p class="text-sm mt-1">Granted</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="px-6 py-4 border-t border-gray-200">
               <div class="flex items-center justify-between">
                 <div class="flex items-center">
@@ -389,8 +435,8 @@
               <!-- <div>
                 <label class="block text-sm font-medium text-gray-700">Role</label>
                 <div class="flex items-center gap-3 mt-1">
-                  <input type="checkbox" id="internal" class="rounded border-gray-300">
-                  <label for="internal" class="text-smtext-gray-700 text-sm">Internal</label>
+                  <input type="checkbox" id="staff" class="rounded border-gray-300">
+                  <label for="staff" class="text-smtext-gray-700 text-sm">Staff</label>
                 </div>
                 <div class="flex items-center gap-3 mt-1">
                   <input type="checkbox" id="guest" class="rounded border-gray-300">
@@ -514,6 +560,28 @@
       // Pastikan klik terjadi pada overlay, bukan pada konten modal
       if (event.target === this) {
         closeModalExport();
+      }
+    });
+  </script>
+
+  <script>
+    // Modal Detail
+    const modalDetail = document.getElementById('modal-detail');
+    const rowTable = document.querySelector('.group');
+
+    rowTable.addEventListener('click', () => {
+      modalDetail.classList.remove('hidden')
+    });
+
+    function closeModalDetail() {
+      modalDetail.classList.add("hidden");
+    }
+
+    document.getElementById('close-modal-detail').addEventListener('click', closeModalDetail);
+    modalDetail.addEventListener('click', function (event) {
+      // Pastikan klik terjadi pada overlay, bukan pada konten modal
+      if (event.target === this) {
+        closeModalDetail();
       }
     });
   </script>

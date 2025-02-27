@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Access Control Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+  <script
+    src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+  <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#659BC8"
+    data-border-radius="small">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+  <script>
+    fetch('https://randomuser.me/api/?gender=male&results=1')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('random-face-1').src = data.results[0].picture.medium;
+      });
+  </script>
+
+
+  <style>
+    .flatpickr-calendar {
+      z-index: 1000 !important;
+      /* Supaya nggak ketutup elemen lain */
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="min-h-screen flex flex-col lg:flex-row">
+    <aside class="w-full lg:w-60 bg-white border-b lg:border-r border-gray-200 lg:fixed lg:h-full">
+      <a href="../../">
+        <div class="px-6 py-4 border-b border-gray-200 flex gap-3">
+          <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Smart Access" class="h-8 ml-0" />
+          <span class="text-xl font-semibold mr-0 text-blue-600">Smart Access</span>
+        </div>
+      </a>
+      <nav class="my-4 px-2 space-y-1">
+        <a href="../../" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-house text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Dashboard
+        </a>
+        <a href="../../log/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-history text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Activity Log
+        </a>
+        <a href="../../guest/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-users text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Guest Reservation
+        </a>
+        <a href="../../door/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-door-open text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Door Access
+          </div>
+        </a>
+        <a href="../../cctv/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-video text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            CCTV
+          </div>
+        </a>
+        <a href="../../talk/"
+          class="flex items-center p-3 text-sm font-medium rounded-lg bg-[#659BC8] bg-opacity-5 text-[#659BC8]">
+          <div class="flex items-center">
+            <i class="fas fa-walkie-talkie text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Walkie-Talkie
+          </div>
+        </a>
+        <!-- <a href="../../user/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-users text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Users
+        </a>
+        <a href="../../device/" class="flex items-center p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <i class="fas fa-tablet-screen-button text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+          Devices
+        </a> -->
+        <a href="" id="management"
+          class="flex items-center justify-between p-3 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50">
+          <div class="flex items-center">
+            <i class="fas fa-user-shield text-base w-5 h-5 flex justify-center items-center mr-4"></i>
+            Admin Panel
+          </div>
+          <i id="chevron" class="fas fa-chevron-down text-gray-400 text-xs transition-transform"></i>
+        </a>
+        <div class="space-y-1 hidden" id="management-submenu">
+          <a href="../../management/door/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            Door Management
+          </a>
+          <a href="../../management/user/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            User Management
+          </a>
+          <a href="../../management/device/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            Device Management
+          </a>
+          <a href="../../management/cctv/"
+            class="flex pl-12 items-center px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-50">
+            CCTV Management
+          </a>
+        </div>
+      </nav>
+    </aside>
+    <main class="flex-1 lg:ml-60">
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="px-6 sm:px-6 py-2 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
+          <div class="flex items-center">
+            <div id="back-button"
+              class="relative -left-2 w-10 h-10 flex justify-center items-center rounded-full text-gray-900 hover:bg-gray-100 cursor-pointer"
+              onclick="window.history.back();">
+              <i class="fas fa-arrow-left text-lg"></i>
+            </div>
+            <h1 class="text-xl font-semibold text-gray-800">John Anderson</h1>
+          </div>
+          <div class="flex items-center space-x-4">
+            <button class="relative p-2 text-gray-400 hover:text-gray-500">
+              <i class="fas fa-bell"></i>
+              <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400"></span>
+            </button>
+            <div id="openModal" class="p-2 flex items-center rounded-md hover:cursor-pointer hover:bg-gray-50">
+              <img src="../../assets/img-account-circle-fill.png" class="h-8 w-8 rounded-full" alt="Profile" />
+              <span class="ml-3 text-sm font-medium text-gray-700">John Smith</span>
+              <i class="fas fa-chevron-down ml-2 text-gray-400 text-xs"></i>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Overlay -->
+        <div id="modalOverlay" class="fixed flex inset-0 bg-black/10 justify-end ml-0 hidden">
+          <div class="h-fit bg-white rounded-lg shadow-xl translate-y-4 -translate-x-4 w-56">
+            <div class="flex flex-col justify-center items-center p-4 border-b border-gray-200">
+              <img src="../../assets/img-account-circle-fill.png" alt="" class="w-20">
+              <h3 class="text-lg font-medium text-center">John Smith</h3>
+              <span class="text-sm text-center text-gray-600">john.smith@example.com</span>
+            </div>
+            <ul class="py-2">
+              <li>
+                <a href="">
+                  <div class="flex px-2 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                    <i class="fas fa-gear flex justify-center items-center w-8 mr-2"></i>
+                    <span>Settings</span>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <div class="flex px-2 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                    <i class="fas fa-sign-out-alt flex justify-center items-center w-8 mr-2"></i>
+                    <span>Log out</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+      </header>
+      <div class="flex-1 max-w-8xl w-full mx-auto p-6">
+        <div class="flex bg-white items-center justify-between rounded-lg border p-6 mb-6">
+          <div class="flex gap-6">
+            <div class="flex relative">
+              <img id="random-face-1" src="../../assets/img-account-circle-fill.png" alt="Operator Avatar"
+                class="w-20 h-20 rounded-full object-cover mx-auto border">
+              <span class="absolute bottom-0 right-0 w-5 h-5 bg-green-500 border-2 border-white rounded-full"></span>
+            </div>
+            <div class="space-y-1">
+              <h1 class="text-xl font-semibold text-gray-900">John Anderson</h1>
+              <p class="text-sm text-gray-500">Security</p>
+              <p class="text-gray-900">Device HT Cp1660-01</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="bg-gray-50 rounded-lg p-4 text-center">
+              <div class="text-sm font-medium text-gray-500">Battery</div>
+              <div class="mt-1 flex items-center justify-center"> <i
+                  class="fas fa-battery-three-quarters text-custom text-lg mr-2"></i>
+                <span class="font-semibold">85%</span>
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 text-center">
+              <div class="text-sm font-medium text-gray-500">Signal</div>
+              <div class="mt-1 flex items-center justify-center"> <i class="fas fa-signal text-custom text-lg mr-2"></i>
+                <span class="font-semibold">Strong</span>
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 text-center">
+              <div class="text-sm font-medium text-gray-500">Last Active</div>
+              <div class="mt-1 flex items-center justify-center"> <i class="fas fa-clock text-custom text-lg mr-2"></i>
+                <span class="font-semibold">2m ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-12 gap-6 mb-20">
+          <div class="col-span-7">
+            <div class="bg-white rounded-lg border">
+              <div class="flex items-center justify-between p-6 border-b">
+                <h2 class="text-lg font-semibold">
+                  Recent Call
+                </h2>
+                <a href="">
+                  <button class="rounded flex items-center text-sm text-custom hover:text-blue-600">
+                    <i class="fas fa-upload mr-2"></i>
+                    <span class="font-medium">Export</span>
+                  </button>
+                </a>
+              </div>
+              <nav class="flex border-b border-gray-200" aria-label="Tabs">
+                <button
+                  class="px-6 py-4 border-b-2 font-medium text-sm border-custom text-custom hover:text-custom whitespace-nowrap"
+                  aria-current="page" onclick="switchTab('group-call')">
+                  Group Call
+                </button>
+                <button
+                  class="px-6 py-4 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-custom whitespace-nowrap"
+                  onclick="switchTab('private-call')">
+                  Private Call
+                </button>
+                <button
+                  class="px-6 py-4 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-custom whitespace-nowrap"
+                  onclick="switchTab('emergency-call')">
+                  Emergency Call
+                </button>
+              </nav>
+              <div id="group-call" class="divide-y">
+                <div id="open-modal-group-call"
+                  class="flex items-center justify-between px-6 py-3 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex space-x-4">
+                    <div>
+                      <i class="fas fa-square-phone text-lg text-green-600"></i>
+                    </div>
+                    <div>
+                      <div class="text-gray-900 space-x-1">
+                        <span>John Anderson</span>
+                        <span>→</span>
+                        <!-- <i class="fas fa-users text-sm text-purple-600"></i> -->
+                        <p class="px-1 text-sm font-medium text-green-600 border border-green-600 rounded inline-block">
+                          Security</p>
+                      </div>
+                      <i class="fa-regular fa-clock text-xs text-gray-500 mr-1"></i>
+                      <span class="text-sm text-gray-500">00:01:45</span>
+                    </div>
+                  </div>
+                  <div class="w-1/6 flex flex-col items-end justify-between space-y-2">
+                    <span class="text-sm text-gray-500">21:42</span>
+                    <div class="flex space-x-4 text-custom">
+                      <i class="fas fa-circle-play text-lg hover:text-blue-600 cursor-pointer"></i>
+                    </div>
+                  </div>
+                </div>
+                <div id="open-modal-group-call"
+                  class="flex items-center justify-between px-6 py-3 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex space-x-4">
+                    <div>
+                      <i class="fas fa-square-phone text-lg text-green-600"></i>
+                    </div>
+                    <div>
+                      <div class="text-gray-900 space-x-1">
+                        <span>John Anderson</span>
+                        <span>→</span>
+                        <!-- <i class="fas fa-users text-sm text-purple-600"></i> -->
+                        <p class="px-1 text-sm font-medium text-green-600 border border-green-600 rounded inline-block">
+                          Security</p>
+                      </div>
+                      <i class="fa-regular fa-clock text-xs text-gray-500 mr-1"></i>
+                      <span class="text-sm text-gray-500">00:00:17</span>
+                    </div>
+                  </div>
+                  <div class="w-1/6 flex flex-col items-end justify-between space-y-2">
+                    <span class="text-sm text-gray-500">21:42</span>
+                    <div class="flex space-x-4 text-custom">
+                      <i class="fas fa-circle-play text-lg hover:text-blue-600 cursor-pointer"></i>
+                    </div>
+                  </div>
+                </div>
+                <div id="open-modal-group-call"
+                  class="flex items-center justify-between px-6 py-3 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex space-x-4">
+                    <div>
+                      <i class="fas fa-square-phone text-lg text-green-600"></i>
+                    </div>
+                    <div>
+                      <div class="text-gray-900 space-x-1">
+                        <span>John Anderson</span>
+                        <span>→</span>
+                        <!-- <i class="fas fa-users text-sm text-purple-600"></i> -->
+                        <p class="px-1 text-sm font-medium text-green-600 border border-green-600 rounded inline-block">
+                          Security</p>
+                      </div>
+                      <i class="fa-regular fa-clock text-xs text-gray-500 mr-1"></i>
+                      <span class="text-sm text-gray-500">00:00:10</span>
+                    </div>
+                  </div>
+                  <div class="w-1/6 flex flex-col items-end justify-between space-y-2">
+                    <span class="text-sm text-gray-500">21:42</span>
+                    <div class="flex space-x-4 text-custom">
+                      <i class="fas fa-circle-play text-lg hover:text-blue-600 cursor-pointer"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal Group Call -->
+              <div id="modal-group-call"
+                class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="relative top-5 bg-white rounded-lg shadow-xl w-full max-w-lg mx-4">
+                  <div class="px-6 py-2 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-lg font-medium">Group Call</h3>
+                    <button id="close-modal-group-call"
+                      class="relative right-[-10px] flex items-center w-10 h-10 justify-center rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-50">
+                      <i class="fas fa-times text-lg"></i>
+                    </button>
+                  </div>
+                  <div class="max-h-[70vh] overflow-y-auto">
+                    <div class="flex flex-col p-6">
+                      <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-4">
+                          <img src="../assets/img-account-circle-fill.png" alt="Caller Avatar"
+                            class="w-12 h-12 rounded-full object-cover border">
+                          <div>
+                            <h3 class="text-base font-medium text-gray-900">Debora Yeeloy</h3>
+                            <p class="text-sm text-gray-500">Today at 10:45</p>
+                          </div>
+                        </div>
+                        <button
+                          class="rounded bg-white px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50">
+                          View Profile
+                        </button>
+                      </div>
+
+                      <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <div class="mb-4">
+                          <h4 class="font-medium text-custom cursor-pointer">Security</h4>
+                          <span class="text-sm text-gray-500">Delivered to 3 of 4 members</span>
+                        </div>
+
+                        <div class="space-y-3">
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                              <span class="text-sm text-gray-700">Michael Smith</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Received</span>
+                          </div>
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                              <span class="text-sm text-gray-700">Emily Davis</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Received</span>
+                          </div>
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                              <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                              <span class="text-sm text-gray-700">James Wilson</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Missed</span>
+                          </div>
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                              <span class="text-sm text-gray-700">David Robinson</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Received</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center gap-4">
+                          <button class="text-custom hover:text-blue-600">
+                            <i class="fas fa-play"></i>
+                          </button>
+                          <div class="flex-1">
+                            <div class="h-1 bg-gray-200 rounded">
+                              <div class="h-full w-1/12 bg-custom rounded"></div>
+                            </div>
+                          </div>
+                          <span class="text-sm text-gray-500">00:20 / 1:45</span>
+                          <button class="text-custom hover:text-blue-600">
+                            <i class="fas fa-download"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="private-call" class="divide-y">
+                <div id="open-modal-private-call"
+                  class="flex items-center justify-between px-6 py-3 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex space-x-4">
+                    <div>
+                      <i class="fas fa-square-phone text-lg text-purple-600"></i>
+                    </div>
+                    <div>
+                      <div class="text-gray-900 space-x-1">
+                        <span>John Anderson</span>
+                        <span>→</span>
+                        <!-- <i class="fas fa-users text-sm text-purple-600"></i> -->
+                        <span>Dennis Han</span>
+                      </div>
+                      <i class="fa-regular fa-clock text-xs text-gray-500 mr-1"></i>
+                      <span class="text-sm text-gray-500">00:01:28</span>
+                    </div>
+                  </div>
+                  <div class="w-1/6 flex flex-col items-end justify-between space-y-2">
+                    <span class="text-sm text-gray-500">23:51</span>
+                    <div class="flex space-x-4 text-custom">
+                      <i class="fas fa-circle-play text-lg hover:text-blue-600 cursor-pointer"></i>
+                    </div>
+                  </div>
+                </div>
+                <div id="open-modal-private-call"
+                  class="flex items-center justify-between px-6 py-3 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex space-x-4">
+                    <div>
+                      <i class="fas fa-square-phone text-lg text-purple-600"></i>
+                    </div>
+                    <div>
+                      <div class="text-gray-900 space-x-1">
+                        <span>John Anderson</span>
+                        <span>→</span>
+                        <!-- <i class="fas fa-users text-sm text-purple-600"></i> -->
+                        <span>Billy Young</span>
+                      </div>
+                      <i class="fas fa-close text-xs text-red-500 mr-1"></i>
+                      <span class="text-sm text-gray-500">missed call</span>
+                    </div>
+                  </div>
+                  <div class="w-1/6 flex flex-col items-end justify-between space-y-2">
+                    <span class="text-sm text-gray-500">21:42</span>
+                    <div class="flex space-x-4 text-custom">
+                      <i class="fas fa-circle-play text-lg hover:text-blue-600 cursor-pointer"></i>
+                    </div>
+                  </div>
+                </div>
+                <div id="open-modal-private-call"
+                  class="flex items-center justify-between px-6 py-3 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex space-x-4">
+                    <div>
+                      <i class="fas fa-square-phone text-lg text-purple-600"></i>
+                    </div>
+                    <div>
+                      <div class="text-gray-900 space-x-1">
+                        <span>John Anderson</span>
+                        <span>→</span>
+                        <!-- <i class="fas fa-users text-sm text-purple-600"></i> -->
+                        <span>Thomas Aldric</span>
+                      </div>
+                      <i class="fa-regular fa-clock text-xs text-gray-500 mr-1"></i>
+                      <span class="text-sm text-gray-500">00:00:10</span>
+                    </div>
+                  </div>
+                  <div class="w-1/6 flex flex-col items-end justify-between space-y-2">
+                    <span class="text-sm text-gray-500">21:42</span>
+                    <div class="flex space-x-4 text-custom">
+                      <i class="fas fa-circle-play text-lg hover:text-blue-600 cursor-pointer"></i>
+                    </div>
+                  </div>
+                </div>
+                <div id="open-modal-private-call"
+                  class="flex items-center justify-between px-6 py-3 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex space-x-4">
+                    <div>
+                      <i class="fas fa-square-phone text-lg text-purple-600"></i>
+                    </div>
+                    <div>
+                      <div class="text-gray-900 space-x-1">
+                        <span>John Anderson</span>
+                        <span>→</span>
+                        <!-- <i class="fas fa-users text-sm text-purple-600"></i> -->
+                        <span>David Robinson</span>
+                      </div>
+                      <i class="fa-regular fa-clock text-xs text-gray-500 mr-1"></i>
+                      <span class="text-sm text-gray-500">00:00:10</span>
+                    </div>
+                  </div>
+                  <div class="w-1/6 flex flex-col items-end justify-between space-y-2">
+                    <span class="text-sm text-gray-500">21:42</span>
+                    <div class="flex space-x-4 text-custom">
+                      <i class="fas fa-circle-play text-lg hover:text-blue-600 cursor-pointer"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal Private Call -->
+              <div id="modal-private-call"
+                class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="relative top-5 bg-white rounded-lg shadow-xl w-full max-w-lg mx-4">
+                  <div class="px-6 py-2 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-lg font-medium">Private Call</h3>
+                    <button id="close-modal-private-call"
+                      class="relative right-[-10px] flex items-center w-10 h-10 justify-center rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-50">
+                      <i class="fas fa-times text-lg"></i>
+                    </button>
+                  </div>
+                  <div class="max-h-[70vh] overflow-y-auto">
+                    <div class="flex flex-col p-6">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                          <img src="../assets/img-account-circle-fill.png" alt="Caller Avatar"
+                            class="w-12 h-12 rounded-full object-cover border">
+                          <div>
+                            <h3 class="text-base font-medium text-gray-900">Michael Chen</h3>
+                            <p class="text-sm text-gray-500">12 Feb 2025 at 10:45</p>
+                          </div>
+                        </div>
+                        <button
+                          class="rounded bg-white px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50">
+                          View Profile
+                        </button>
+                      </div>
+                      <i class="fas fa-phone-volume ml-5 py-2 text-green-600"></i>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                          <img src="../assets/img-account-circle-fill.png" alt="Caller Avatar"
+                            class="w-12 h-12 rounded-full object-cover border">
+                          <div>
+                            <h3 class="text-base font-medium text-gray-900">Dennis Han</h3>
+                            <p class="text-sm text-gray-500">Received</p>
+                          </div>
+                        </div>
+                        <button
+                          class="rounded bg-white px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50">
+                          View Profile
+                        </button>
+                      </div>
+
+                      <div class="bg-gray-50 rounded-lg p-4 mt-6">
+                        <div class="flex items-center gap-4">
+                          <button class="text-custom hover:text-blue-600">
+                            <i class="fas fa-play"></i>
+                          </button>
+                          <div class="flex-1">
+                            <div class="h-1 bg-gray-200 rounded">
+                              <div class="h-full w-1/12 bg-custom rounded"></div>
+                            </div>
+                          </div>
+                          <span class="text-sm text-gray-500">00:20 / 1:28</span>
+                          <button class="text-custom hover:text-blue-600">
+                            <i class="fas fa-download"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="emergency-call" class="divide-y">
+                <div id="open-modal-emergency-call"
+                  class="flex items-center justify-between px-6 py-3 hover:bg-blue-50 cursor-pointer">
+                  <div class="flex space-x-4">
+                    <div>
+                      <i class="fas fa-triangle-exclamation text-lg text-red-600"></i>
+                    </div>
+                    <div>
+                      <div class="text-gray-900 space-x-1">
+                        <span>John Anderson</span>
+                      </div>
+                      <i class="fa-regular fa-clock text-xs text-gray-500 mr-1"></i>
+                      <span class="text-sm text-gray-500">00:02:07</span>
+                    </div>
+                  </div>
+                  <div class="w-1/6 flex flex-col items-end justify-between space-y-2">
+                    <span class="text-sm text-gray-500">10:45</span>
+                    <div class="flex space-x-4 text-custom">
+                      <i class="fas fa-circle-play text-lg hover:text-blue-600 cursor-pointer"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal emergency Call -->
+              <div id="modal-emergency-call"
+                class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="relative top-5 bg-white rounded-lg shadow-xl w-full max-w-lg mx-4">
+                  <div class="px-6 py-2 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-lg font-medium">Emergency Call</h3>
+                    <button id="close-modal-emergency-call"
+                      class="relative right-[-10px] flex items-center w-10 h-10 justify-center rounded-full text-gray-400 hover:text-gray-500 hover:bg-gray-50">
+                      <i class="fas fa-times text-lg"></i>
+                    </button>
+                  </div>
+                  <div class="max-h-[70vh] overflow-y-auto">
+                    <div class="flex flex-col p-6">
+                      <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-4">
+                          <img src="../assets/img-account-circle-fill.png" alt="Caller Avatar"
+                            class="w-12 h-12 rounded-full object-cover border">
+                          <div>
+                            <h3 class="text-base font-medium text-gray-900">Billy Young</h3>
+                            <p class="text-sm text-gray-500">01 Jan 2025 at 10:45</p>
+                          </div>
+                        </div>
+                        <button
+                          class="rounded bg-white px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50">
+                          View Profile
+                        </button>
+                      </div>
+
+                      <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <div class="mb-4">
+                          <h4 class="font-medium text-custom cursor-pointer">All Operator</h4>
+                          <span class="text-sm text-gray-500">Delivered to 3 of 25 members</span>
+                        </div>
+
+                        <div class="space-y-3">
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                              <span class="text-sm text-gray-700">Michael Smith</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Received</span>
+                          </div>
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                              <span class="text-sm text-gray-700">Emily Davis</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Received</span>
+                          </div>
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                              <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                              <span class="text-sm text-gray-700">James Wilson</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Missed</span>
+                          </div>
+                          <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                              <span class="text-sm text-gray-700">David Robinson</span>
+                            </div>
+                            <span class="text-xs text-gray-500">Received</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center gap-4">
+                          <button class="text-custom hover:text-blue-600">
+                            <i class="fas fa-play"></i>
+                          </button>
+                          <div class="flex-1">
+                            <div class="h-1 bg-gray-200 rounded">
+                              <div class="h-full w-1/12 bg-custom rounded"></div>
+                            </div>
+                          </div>
+                          <span class="text-sm text-gray-500">00:20 / 2:07</span>
+                          <button class="text-custom hover:text-blue-600">
+                            <i class="fas fa-download"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-5 space-y-4">
+            <div class="bg-white rounded-lg border p-6">
+              <div class="flex justify-between mb-6">
+                <h2 class="text-lg font-semibold">
+                  Live Location
+                </h2>
+              </div>
+              <div id="image-container"
+                class="flex-1 h-[45vh] border-r border-gray-300 overflow-hidden relative cursor-move bg-black select-none">
+                <div id="image-wrapper" class="absolute top-0 left-0">
+                  <img id="floor-map" src="../../assets/img-default-map.png" alt="Floor Map"
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+                  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="w-8 h-8 bg-red-400 rounded-full animate-ping"></div>
+                    <i class="fas fa-circle absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-red-600 border border-red-300 shadow rounded-full cursor-pointer"
+                      title="John Anderson"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </main>
+  </div>
+
+  <script>
+    // Get elements
+    const openModalButton = document.getElementById('openModal');
+    const closeModalButton = document.getElementById('closeModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    // Open modal
+    openModalButton.addEventListener('click', () => {
+      modalOverlay.classList.remove('hidden');
+    });
+
+    // Close modal by clicking outside the modal
+    modalOverlay.addEventListener('click', (event) => {
+      if (event.target === modalOverlay) {
+        modalOverlay.classList.add('hidden');
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const deviceMenu = document.querySelector("#management-submenu");
+      const toggleButton = document.querySelector("#management");
+      const chevronIcon = document.querySelector("#chevron");
+
+      toggleButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        deviceMenu.classList.toggle("hidden");
+        chevronIcon.classList.toggle("rotate-180");
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const imageContainer = document.getElementById("image-container");
+      const imageWrapper = document.getElementById("image-wrapper");
+      const floorMap = document.getElementById("floor-map");
+      const locationIcon = document.getElementById("location-icon");
+      let panzoomInstance;
+
+      function getImageSize(image) {
+        return new Promise((resolve) => {
+          const tempImg = new Image();
+          tempImg.src = image.src;
+          tempImg.onload = () => resolve({ width: tempImg.naturalWidth, height: tempImg.naturalHeight });
+        });
+      }
+
+      async function updateMinScale() {
+        const containerRect = imageContainer.getBoundingClientRect();
+        const imgSize = await getImageSize(floorMap);
+        const scaleX = containerRect.width / imgSize.width;
+        const scaleY = containerRect.height / imgSize.height;
+        return Math.max(scaleX, scaleY);
+      }
+
+      async function initPanzoom() {
+        const minScale = await updateMinScale();
+        if (panzoomInstance) {
+          panzoomInstance.destroy();
+        }
+
+        panzoomInstance = Panzoom(imageWrapper, {
+          maxScale: 5,
+          minScale: minScale,
+          contain: "outside",
+        });
+
+        imageWrapper.style.width = `${floorMap.naturalWidth}px`;
+        imageWrapper.style.height = `${floorMap.naturalHeight}px`;
+
+        setTimeout(() => {
+          const containerRect = imageContainer.getBoundingClientRect();
+          const imageRect = imageWrapper.getBoundingClientRect();
+
+          console.log("Container:", containerRect);
+          console.log("Image Wrapper:", imageRect);
+
+          // Hitung titik tengah container
+          const containerCenterX = containerRect.left + containerRect.width / 2;
+          const containerCenterY = containerRect.top + containerRect.height / 2;
+
+          // Hitung titik tengah image
+          const imageCenterX = imageRect.left + imageRect.width / 2;
+          const imageCenterY = imageRect.top + imageRect.height / 2;
+
+          // Hitung jarak yang harus dikoreksi
+          const deltaX = containerCenterX - imageCenterX;
+          const deltaY = containerCenterY - imageCenterY;
+
+          console.log("Delta X:", deltaX, "Delta Y:", deltaY);
+
+          if (panzoomInstance) {
+            panzoomInstance.pan(deltaX, deltaY * 0); // Geser otomatis ke tengah
+          }
+
+        }, 200); // Timeout lebih lama supaya tidak bentrok dengan event lain
+
+        imageWrapper.addEventListener("wheel", panzoomInstance.zoomWithWheel);
+      }
+
+
+      // **Load Panzoom saat halaman dimuat**
+      window.onload = function () {
+        setTimeout(() => {
+          initPanzoom().then(() => {
+            setTimeout(() => {
+              if (panzoomInstance) {
+                panzoomInstance.zoom(panzoomInstance.getScale());
+                panzoomInstance.pan(0, 0);
+              }
+            }, 100);
+          });
+        }, 50);
+      };
+
+      // **Update saat resize atau gambar berubah**
+      window.addEventListener("resize", () => initPanzoom());
+      floorMap.addEventListener("load", () => initPanzoom());
+    });
+  </script>
+
+  <script>
+    function switchTab(tabName) {
+      // Sembunyikan semua konten tab
+      document.getElementById('group-call').classList.add('hidden');
+      document.getElementById('private-call').classList.add('hidden');
+      document.getElementById('emergency-call').classList.add('hidden');
+
+      // Tampilkan konten tab yang dipilih
+      document.getElementById(tabName).classList.remove('hidden');
+
+      // Update tampilan tombol tab
+      const buttons = document.querySelectorAll('nav button');
+      buttons.forEach(button => {
+        if (button.getAttribute('onclick').includes(tabName)) {
+          button.classList.add('border-custom', 'text-custom');
+          button.classList.remove('border-transparent', 'text-gray-500');
+        } else {
+          button.classList.remove('border-custom', 'text-custom');
+          button.classList.add('border-transparent', 'text-gray-500');
+        }
+      });
+    }
+
+    // Set tab default saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+      switchTab('group-call'); // Tampilkan tab Group Call secara default
+    });
+  </script>
+</body>
+
+</html>
